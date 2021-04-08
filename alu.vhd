@@ -23,7 +23,7 @@ architecture behave of alu is begin
 				else result <= "00000000000000000000000000000000"; -- set on less than
 				end if;
 			when "1000" => result <= not (op1 or op2); -- branch if equal
-			when others => result <= "--------------------------------";
+			when others => result <= "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
 		end case;
 	end process;
 
