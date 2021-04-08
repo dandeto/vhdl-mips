@@ -23,8 +23,13 @@ architecture behave of alu is begin
 					result <= "11111111111111111111111111111111"; -- set on less than
 					else result <= "00000000000000000000000000000000"; 
 				end if;
+<<<<<<< HEAD
+			when "1000" => result <= not (op1 or op2); -- branch if equal
+			when others => result <= "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+=======
 			when "1100" => result <= not (opA or opB); -- branch if equal
 			when others => result <= "--------------------------------";
+>>>>>>> stay_off_my_branch
 		end case;
 	end process;
 end behave;

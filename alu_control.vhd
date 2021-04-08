@@ -11,8 +11,12 @@ port (
 end alu_control;
 
 architecture behave of alu_control is begin
-    process(Op, functField) begin
-        case(Op & functField) is
+    process(Op, functField)
+	variable Op_Field : std_logic_vector(7 downto 0);
+begin
+	Op_Field := Op & functField;
+	-- case? may not synthesize
+        case? Op_Field is
             when "1---0000" => aluCtrl <= "0010";        -- add 
             when "1---0010" => aluCtrl <= "0110";        -- sub
             when "1---0100" => aluCtrl <= "0000";        -- and
@@ -20,8 +24,8 @@ architecture behave of alu_control is begin
             when "1---1010" => aluCtrl <= "0111";        -- slt
             when "00------" => aluCtrl <= "0010";        -- lw and sw
             when "01------" => aluCtrl <= "0110";        -- beq
-            when others => aluCtrl <= "XXXX";
-        end case;
+            when others => aluCtrl <= "0101";
+        end case?;
     end process;
 
 end behave;
