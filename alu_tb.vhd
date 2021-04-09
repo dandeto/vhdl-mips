@@ -6,47 +6,27 @@ entity ALU_TEST_BENCH is
 end ALU_TEST_BENCH;
 
 architecture  TEST of ALU_TEST_BENCH is
+  -- alu
   signal op1, op2 : std_logic_vector(31 downto 0);
   signal aluOp    : std_logic_vector(3  downto 0);
   signal result   : std_logic_vector(31 downto 0);
   signal zeroFlag : std_logic;
-
+  -- alu control
   signal Op         : std_logic_vector(1 downto 0);
   signal functField : std_logic_vector(5 downto 0);
-  signal aluCtrl    : std_logic_vector(3 downto 0);
-
-  signal CLK : std_logic := '0';
 
 begin
   alu : entity work.alu(behave)
         port map (op1, op2, aluOp, result, zeroFlag);
   control: entity work.alu_control(behave)
-           port map (Op, functField, aluCtrl);
-
-
-    -- initialize alu operations
-    op1 <= "00000000000000000000000000000011";
-    op2 <= "00000000000000000000000000001010";
-
+           port map (Op, functField, aluOp);
 
     process begin
-      -- directly test alu
-      wait for 1 ns;
-      aluOp <= "0000";
-      wait for 1 ns;
-      aluOp <= "0001";
-      wait for 1 ns;
-      aluOp <= "0010";
-      wait for 1 ns;
-      aluOp <= "0110";
-      wait for 1 ns;
-      aluOp <= "0111";
-      wait for 1 ns;
-      aluOp <= "1000";
-      wait for 1 ns;
-      aluOp <= "1111";
+      -- initialize alu operations
+      op1 <= "00000000000000000000000000000011";
+      op2 <= "00000000000000000000000000001010";
 
-      -- test alu control
+      -- test alu control ( run for 11 ns )
 
       wait for 1 ns;
       Op <= "10";
