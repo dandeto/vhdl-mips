@@ -41,6 +41,12 @@ architecture behave of datapath is
     signal B : std_logic_vector(31 downto 0);
 
     signal ALUResult : std_logic_vector(31 downto 0);
+
+    type register_block is array (0 to 31) of std_logic_vector(31 downto 0); -- define register block type
+    signal reg : register_block;
+    signal mdr : std_logic_vector(31 downto 0); -- used for transfering data to instruction opcodes
+    signal da : std_logic_vector(31 downto 0); -- data read a
+    signal db : std_logic_vector(31 downto 0); -- data read b
 begin
     func <= instruction(5 downto 0); -- assign func field
     op <= instruction(31 downto 26); -- assign op field
@@ -75,4 +81,20 @@ begin
             end if;
         end if;
     end process;
+
+
+    instruction_register_write : process(clk) begin -- get instruction
+        if rising_edge(clk) then
+            if(IRWrite = '1') then
+                instruction <= memData;
+            end if;
+        end if;
+    end process;
+
+    memory_data_to_reg : process(clk) begin
+        if rising_edge(clk) then
+            mdr <= memData;
+        end if;
+    end process;
+
 end architecture;
