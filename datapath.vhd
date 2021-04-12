@@ -122,4 +122,16 @@ begin
             end if;
         end if;
     end process;
+
+    a_reg : process(clk) begin
+        if rising_edge(clk) then
+            A <= da;    
+        end if;
+    end process;
+
+    b_reg : process(clk) begin
+        if rising_edge(clk) then
+            B <= db;    
+        end if;
+    end process;
 end architecture;
