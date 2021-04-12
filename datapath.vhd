@@ -97,4 +97,29 @@ begin
         end if;
     end process;
 
+    da <= reg(to_integer(unsigned(instruction(25 downto 21)))) when (to_integer(unsigned(instruction(25 downto 21))) /= 0) 
+    else x"00000000";
+
+    db <= reg(to_integer(unsigned(instruction(20 downto 16)))) when (to_integer(unsigned(instruction(20 downto 16))) /= 0) 
+    else x"00000000";
+
+    reg_dst : process(clk) begin
+        if rising_edge(clk) then
+            if(regWrite = '1') then
+                if(regDst = '1') then
+                    if(memToReg = '1') then
+                        reg(to_integer(unsigned(instruction(15 downto 11)))) <= mdr; 
+                    else
+                        reg(to_integer(unsigned(instruction(15 downto 11)))) <= ALUOut;
+                    end if;
+                else
+                    if(memToReg = '1') then
+                        reg(to_integer(unsigned(instruction(20 downto 16)))) <= mdr; 
+                    else
+                        reg(to_integer(unsigned(instruction(20 downto 16)))) <= ALUOut;
+                    end if;
+                end if;
+            end if;
+        end if;
+    end process;
 end architecture;
