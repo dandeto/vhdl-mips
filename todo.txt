@@ -1,1 +1,3 @@
 - fix line 38 on datapath - address <= aluOut when (IorD = '1') else PC;
+- verify that line 70 and 71 are correct - when '0' => PC <= ALUResult(7 downto 0); 
+                        		 - when '1' => PC <= ALUOut(7 downto 0); 

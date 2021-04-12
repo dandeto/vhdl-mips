@@ -40,12 +40,14 @@ architecture behave of datapath is
     signal A : std_logic_vector(31 downto 0);
     signal B : std_logic_vector(31 downto 0);
 
+    signal ALUResult : std_logic_vector(31 downto 0);
 begin
     func <= instruction(5 downto 0); -- assign func field
     op <= instruction(31 downto 26); -- assign op field
 
-    address <= aluOut when (IorD = '1') else PC; -- fix this???
+    address <= aluOut(7 downto 0) when (IorD = '1') else PC; -- needs verifying!!!
 
+                -- memory logic
     write_to_mem : process(clk) begin -- handle writes to memory
         if rising_edge(clk) then 
             if(memWrite = '1') then 
@@ -55,4 +57,22 @@ begin
     end process;
 
     memData <= mem(to_integer(unsigned(address))) when (memRead = '1') else "--------------------------------"; -- read from memory
+
+        -- PC logic
+
+    PC_logic : process(clk) begin
+        if rising_edge(clk) then
+            if(reset = '1') then
+                PC <= std_logic_vector(to_unsigned(PCSTART, PC'length)); -- go back to the original instruction
+            else
+                if(PCsel = '1') then
+                    case(PCSource) is
+                        when '0' => PC <= ALUResult(7 downto 0); -- needs verifying!!!
+                        when '1' => PC <= ALUOut(7 downto 0); -- needs verifying!!!
+                        when others => PC <= "XXXXXXXX";
+                    end case;
+                end if;
+            end if;
+        end if;
+    end process;
 end architecture;
