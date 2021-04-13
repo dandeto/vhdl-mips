@@ -8,6 +8,7 @@ entity alu is
 		opA, opB : in  std_logic_vector(31 downto 0); -- the inputs
 		aluOp : in  std_logic_vector(3  downto 0); -- what operation to perform
 		result : out std_logic_vector(31 downto 0) -- the end result
+		-- maybe add zero flag
 	);
 end entity alu;
 
@@ -23,13 +24,8 @@ architecture behave of alu is begin
 					result <= "11111111111111111111111111111111"; -- set on less than
 					else result <= "00000000000000000000000000000000"; 
 				end if;
-<<<<<<< HEAD
-			when "1000" => result <= not (op1 or op2); -- branch if equal
+			when "1000" => result <= not (opA or opB); -- branch if equal
 			when others => result <= "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-=======
-			when "1100" => result <= not (opA or opB); -- branch if equal
-			when others => result <= "--------------------------------";
->>>>>>> stay_off_my_branch
 		end case;
 	end process;
 end behave;
