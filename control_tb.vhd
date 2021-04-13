@@ -9,22 +9,55 @@ architecture TEST of CONTROL_TEST_BENCH is
 	signal IorD, MemWrite, MemRead,
 	MemtoReg, IRWrite, PCSource,
 	RegDst, RegWrite, ALUSrcA,
-	PCSel          : std_logic;
+	PCSel                 : std_logic;
 
-	signal clk, rst, Z    : std_logic;
+	signal clk            : std_logic := '0';
+	signal rst, Z         : std_logic;
 	signal Op             : std_logic_vector(5 downto 0);
 	signal ALUOp, ALUSrcB : std_logic_vector(1 downto 0);
 
 begin
-	alu : entity work.control(behave)
-	      port map (op1, op2, aluOp, result, zeroFlag);
+	control : entity work.control(behave)
+	      port map (
+		      clk => clk,
+		      rst => rst,
+		      Z => Z,
+		      Op => Op,
+		      IorD => IorD,
+		      MemWrite => MemWrite,
+		      MemRead => MemRead,
+		      MemtoReg => MemtoReg,
+		      IRWrite => IRWrite,
+		      PCSource => PCSource,
+		      RegDst => RegDst,
+		      RegWrite => RegWrite,
+		      ALUSrcA => ALUSrcA,
+		      PCSel => PCSel,
+		      ALUOp => ALUOp,
+		      ALUSrcB => ALUSrcB
+		    );
 
-	process(clk)
-	begin
+	process(clk) begin
 		clk <= not clk after 1 ns;
 	end process;
 
-	process begin
 
+	-- run for 52 ns
+	process begin
+		wait for 1 ns;
+		rst <= '1';
+		wait for 1 ns;
+		rst <= '0';
+		Op <= "100011";
+		Z <= '0';
+		wait for 10 ns;
+		Op <= "101011";
+		wait for 10 ns;
+		Op <= "000000";
+		wait for 10 ns;
+		Op <= "000100";
+		wait for 10 ns;
+		rst <= '1';
+		wait for 10 ns;
 	end process;
 end TEST;
