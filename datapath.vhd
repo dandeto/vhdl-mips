@@ -11,11 +11,11 @@ entity datapath is
         IorD : in std_logic; -- determine if you are reading from instruction or data memory
         memWrite : in std_logic; -- signal to write to registers
         memRead : in std_logic; -- signal to read from registers
-        memToReg : in std_logic;
+        memToReg : in std_logic; -- determines where the value to be written comes from
         IRWrite : in std_logic;
         PCSource : in std_logic;
-        regDst : in std_logic;
-        regWrite : in std_logic;
+        regDst : in std_logic; -- determines how the destination reg is specified
+        regWrite : in std_logic; -- enables writing to a register
         PCSel : in std_logic;
         ALUSrcA : in std_logic;
         ALUSrcB : in std_logic_vector(1 downto 0);
@@ -47,6 +47,29 @@ architecture behave of datapath is
     signal mdr : std_logic_vector(31 downto 0); -- used for transfering data to instruction opcodes
     signal da : std_logic_vector(31 downto 0); -- data read a
     signal db : std_logic_vector(31 downto 0); -- data read b
+
+    signal opA : std_logic_vector(31 downto 0);
+    signal opB : std_logic_vector(31 downto 0);
+
+    signal sign_extended : std_logic_vector(31 downto 0);
+    component sign_extend
+        port
+        (
+            in_bits : in std_logic_vector(15 downto 0);
+            out_bits : out std_logic_vector(31 downto 0)
+        );
+    end component;
+
+    component alu
+        port 
+        (
+            opA : in  std_logic_vector(31 downto 0); 
+            opB : in  std_logic_vector(31 downto 0); 
+		    aluOp : in  std_logic_vector(3  downto 0); 
+		    result : out std_logic_vector(31 downto 0) 
+        );
+    end component;
+
 begin
     func <= instruction(5 downto 0); -- assign func field
     op <= instruction(31 downto 26); -- assign op field
@@ -62,7 +85,7 @@ begin
         end if;
     end process;
 
-    memData <= mem(to_integer(unsigned(address))) when (memRead = '1') else "--------------------------------"; -- read from memory
+    memData <= mem(to_integer(unsigned(address))) when (memRead = '1') else "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"; -- read from memory
 
         -- PC logic
 
@@ -132,6 +155,45 @@ begin
     b_reg : process(clk) begin
         if rising_edge(clk) then
             B <= db;    
+        end if;
+    end process;
+
+    opA <= A when (ALUSrcA = '1') else PC; -- fix this!!!
+
+            -- sign extension
+    se : sign_extend
+    port map
+    (
+        in_bits => instruction(15 downto 0),
+        out_bits => sign_extended
+    );
+
+    opB_process : process(ALUSrcB, B, instruction(15 downto 0))
+    begin
+        case(ALUSrcB) is
+            when "00" => opB <= B;
+            when "01" => opB <= x"00000001";
+            when "1X" => opB <= x"00000000";
+            when others => opB <= "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+        end case;
+    end process;
+
+    zero <= '1' when (ALUResult = x"00000000") else '0';
+    
+            -- alu logic
+    alu_ints : alu
+    port map
+    (
+        opA => opA,  
+        opB => opB,
+		aluOp => aluCtrl,
+		result => ALUResult
+    );
+
+    ALUOut_to_ALUResult : process(clk) 
+    begin
+        if rising_edge(clk) then
+            ALUOut <= ALUResult;
         end if;
     end process;
 end architecture;
