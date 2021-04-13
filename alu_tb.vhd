@@ -17,7 +17,7 @@ architecture  TEST of ALU_TEST_BENCH is
 
 begin
   alu : entity work.alu(behave)
-        port map (op1, op2, aluOp, result, zeroFlag);
+        port map (op1, op2, aluOp, result);
   control: entity work.alu_control(behave)
            port map (Op, functField, aluOp);
 
