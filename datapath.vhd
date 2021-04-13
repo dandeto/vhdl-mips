@@ -47,6 +47,9 @@ architecture behave of datapath is
     signal mdr : std_logic_vector(31 downto 0); -- used for transfering data to instruction opcodes
     signal da : std_logic_vector(31 downto 0); -- data read a
     signal db : std_logic_vector(31 downto 0); -- data read b
+
+    signal opA : std_logic_vector(31 downto 0);
+    signal opB : std_logic_vector(31 downto 0);
 begin
     func <= instruction(5 downto 0); -- assign func field
     op <= instruction(31 downto 26); -- assign op field
@@ -134,4 +137,18 @@ begin
             B <= db;    
         end if;
     end process;
+
+    opA <= A when (ALUSrcA = '1') else PC; -- fix this!!!
+
+    opB_process : process(ALUSrcB, B, instruction(15 downto 0))
+    begin
+        case(ALUSrcB) is
+            when "00" => opB <= B;
+            when "01" => opB <= x"00000001";
+            when "1X" => opB <= x"00000000";
+            when others => opB <= "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+        end case;
+    end process;
+
+    zero <= '1' when (ALUResult = x"00000000") else '0';
 end architecture;
