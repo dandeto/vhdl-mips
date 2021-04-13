@@ -50,6 +50,16 @@ architecture behave of datapath is
 
     signal opA : std_logic_vector(31 downto 0);
     signal opB : std_logic_vector(31 downto 0);
+
+    signal sign_extended : std_logic_vector(31 downto 0);
+    component sign_extend
+        port
+        (
+            in_bits : in std_logic_vector(15 downto 0);
+            out_bits : out std_logic_vector(31 downto 0)
+        );
+    end component;
+
 begin
     func <= instruction(5 downto 0); -- assign func field
     op <= instruction(31 downto 26); -- assign op field
@@ -140,6 +150,14 @@ begin
 
     opA <= A when (ALUSrcA = '1') else PC; -- fix this!!!
 
+    -- sign extension
+    se : sign_extend
+    port map
+    (
+        instruction(15 downto 0),
+        sign_extended
+    );
+
     opB_process : process(ALUSrcB, B, instruction(15 downto 0))
     begin
         case(ALUSrcB) is
@@ -151,4 +169,6 @@ begin
     end process;
 
     zero <= '1' when (ALUResult = x"00000000") else '0';
+
+    
 end architecture;
