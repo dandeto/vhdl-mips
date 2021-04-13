@@ -11,11 +11,11 @@ entity datapath is
         IorD : in std_logic; -- determine if you are reading from instruction or data memory
         memWrite : in std_logic; -- signal to write to registers
         memRead : in std_logic; -- signal to read from registers
-        memToReg : in std_logic;
+        memToReg : in std_logic; -- determines where the value to be written comes from
         IRWrite : in std_logic;
         PCSource : in std_logic;
-        regDst : in std_logic;
-        regWrite : in std_logic;
+        regDst : in std_logic; -- determines how the destination reg is specified
+        regWrite : in std_logic; -- enables writing to a register
         PCSel : in std_logic;
         ALUSrcA : in std_logic;
         ALUSrcB : in std_logic_vector(1 downto 0);
@@ -85,7 +85,7 @@ begin
         end if;
     end process;
 
-    memData <= mem(to_integer(unsigned(address))) when (memRead = '1') else "--------------------------------"; -- read from memory
+    memData <= mem(to_integer(unsigned(address))) when (memRead = '1') else "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"; -- read from memory
 
         -- PC logic
 
