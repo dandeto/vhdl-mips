@@ -3,35 +3,33 @@ use IEEE.STD_LOGIC_1164.ALL;
 use ieee.numeric_std.all;
 
 entity control is
-	-- Control Constants
-	generic
-	(
-		FETCH      : std_logic_vector(4 downto 0) := "0000";
-		DECODE     : std_logic_vector(4 downto 0) := "0001";
-		MEMADRCOMP : std_logic_vector(4 downto 0) := "0010";
-		MEMACCESSL : std_logic_vector(4 downto 0) := "0011";
-		MEMREADEND : std_logic_vector(4 downto 0) := "0100";
-		MEMACCESSS : std_logic_vector(4 downto 0) := "0101";
-		EXECUTION  : std_logic_vector(4 downto 0) := "0110";
-		RTYPEEND   : std_logic_vector(4 downto 0) := "0111";
-		BEQ        : std_logic_vector(4 downto 0) := "1000"
-	);
 	port
 	(
+		clk, rst, Z    : in std_logic;
+		Op             : in std_logic_vector(5 downto 0);
 		IorD, MemWrite, MemRead,
 		MemtoReg, IRWrite, PCSource,
 		RegDst, RegWrite, ALUSrcA,
 		PCSel          : out std_logic;
-
-		clk, rst, Z    : in std_logic;
-		Op             : in std_logic_vector(5 downto 0);
 		ALUOp, ALUSrcB : out std_logic_vector(1 downto 0)
 	);
 end control;
 
 architecture behave of control is 
-	variable PCWrite, PCWriteCond : std_logic;
-	variable state, nextstate     : std_logic_vector(3 downto 0);
+	-- Local Variables
+	signal PCWrite, PCWriteCond : std_logic;
+	signal state, nextstate     : std_logic_vector(3 downto 0);
+
+	-- Control Constants
+	constant FETCH      : std_logic_vector(3 downto 0) := "0000";
+	constant DECODE     : std_logic_vector(3 downto 0) := "0001";
+	constant MEMADRCOMP : std_logic_vector(3 downto 0) := "0010";
+	constant MEMACCESSL : std_logic_vector(3 downto 0) := "0011";
+	constant MEMREADEND : std_logic_vector(3 downto 0) := "0100";
+	constant MEMACCESSS : std_logic_vector(3 downto 0) := "0101";
+	constant EXECUTION  : std_logic_vector(3 downto 0) := "0110";
+	constant RTYPEEND   : std_logic_vector(3 downto 0) := "0111";
+	constant BEQ        : std_logic_vector(3 downto 0) := "1000";
 begin
 
 	PCSel <= (PCWrite or (PCWriteCond and Z));
@@ -43,23 +41,33 @@ begin
 			else
 				state <= nextstate;
 			end if;
+		end if;
+	end process;
 
-			process(state or Op) begin
+			process(state, Op) begin
 				case(state) is
 					when FETCH => nextstate <= DECODE;
 					when DECODE =>
 						case(Op) is
+							when "100011" => nextstate <= MEMADRCOMP; --lw
+							when "101011" => nextstate <= MEMADRCOMP; --sw
+							when "000000" => nextstate <= EXECUTION; --r
+							when "000100" => nextstate <= BEQ; --beq
+							when others   => nextstate <= FETCH;
 						end case;
 					when MEMADRCOMP =>
 						case(Op) is
+							when "100011" => nextstate <= MEMACCESSL; --lw
+							when "101011" => nextstate <= MEMACCESSS; --sw
+							when others   => nextstate <= FETCH;
 						end case;
 					when MEMACCESSL => nextstate <= MEMREADEND;
 					when MEMREADEND => nextstate <= FETCH;
 					when MEMACCESSS => nextstate <= FETCH;
-					when EXECUTION => nextstate <= RTYPEEND;
-					when RTYPEEND => nextstate <= FETCH;
-					when BEQ => nextstate <= FETCH;
-					when others => nextstate <= FETCH; -- when in doubt: fetch
+					when EXECUTION  => nextstate <= RTYPEEND;
+					when RTYPEEND   => nextstate <= FETCH;
+					when BEQ        => nextstate <= FETCH;
+					when others     => nextstate <= FETCH; -- when in doubt: fetch
 				end case;
 			end process;
 
@@ -108,11 +116,8 @@ begin
 						ALUSrcA     <= '1';
 						ALUOp       <= "01";
 						PCWriteCond <= '1';
-						PCSource    <= "01";
+						PCSource    <= '1';
+					when others => null;
 				end case;
 			end process;
-		end if;
-
-	end process;
-
 end behave;
