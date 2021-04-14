@@ -1,3 +1,4 @@
+use work.all;
 library IEEE;
 use IEEE.STD_LOGIC_1164.ALL;
 use IEEE.numeric_std.all;
@@ -33,8 +34,6 @@ architecture behave of datapath is
     signal aluOut : std_logic_vector(31 downto 0);
     signal address : std_logic_vector(7 downto 0);
 
-    type memory_block is array (0 to 255) of std_logic_vector(31 downto 0); -- define memory block type
-    signal mem : memory_block; -- data and instruction memory 
     signal memData : std_logic_vector(31 downto 0); -- holds data read from memory
 
     signal A : std_logic_vector(31 downto 0);
@@ -70,23 +69,35 @@ architecture behave of datapath is
         );
     end component;
 
+    component memory
+        port
+        (
+            clk : in std_logic;
+            memWrite : in std_logic;
+            memRead : in std_logic;
+            address : in std_logic_vector(7 downto 0);
+            B : in std_logic_vector(31 downto 0);
+            memData : out std_logic_vector(31 downto 0)
+        );
+    end component;
+
 begin
     func <= instruction(5 downto 0); -- assign func field
     op <= instruction(31 downto 26); -- assign op field
 
     address <= aluOut(7 downto 0) when (IorD = '1') else PC; -- needs verifying!!!
 
-                -- memory logic
-    write_to_mem : process(clk) begin -- handle writes to memory
-        if rising_edge(clk) then 
-            if(memWrite = '1') then 
-                mem(to_integer(unsigned(address))) <= B;
-            end if;
-        end if;
-    end process;
-
-    memData <= mem(to_integer(unsigned(address))) when (memRead = '1') else "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"; -- read from memory
-
+    memory_inst : memory
+    port map
+    (
+        clk=>clk, 
+        memWrite=>memWrite,
+        memRead=>memRead,
+        address=>address,
+        B=>B,
+        memData=>memData
+    );
+    
         -- PC logic
 
     PC_logic : process(clk) begin
