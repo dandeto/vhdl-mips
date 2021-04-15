@@ -1,9 +1,12 @@
+library IEEE;
+use IEEE.STD_LOGIC_1164.ALL;
+
 entity mips_tb is
 end mips_tb;
 
 architecture testbench of mips_tb is
-    clk : std_logic;
-	reset : std_logic;
+    signal clk : std_logic;
+	signal reset : std_logic;
 
     component mips
     port
@@ -13,4 +16,16 @@ architecture testbench of mips_tb is
         );
     end component;
 begin
+
+    dut : mips port map (clk=>clk, reset=>reset);
+
+    process(clk)
+    begin
+        clk <= not clk after 5 ns;
+    end process;
+    
+    stimuli : process
+	begin
+        wait;
+	end process;
 end testbench;
