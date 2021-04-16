@@ -172,7 +172,7 @@ begin
         end if;
     end process;
 
-    opA <= A when (ALUSrcA = '1') else PC; -- fix this!!!
+    opA <= A when (ALUSrcA = '1') else std_logic_vector(resize(unsigned(PC), opA'length)); 
 
             -- sign extension
     se : sign_extend

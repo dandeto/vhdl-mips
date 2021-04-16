@@ -63,7 +63,7 @@ begin
 	ctrl : entity work.control(behave)
 		port map (
 			clk => clk,
-			rst => rst,
+			rst => reset,
 			Z => zero,
 			Op => Op,
 			IorD => IorD,
