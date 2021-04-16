@@ -72,6 +72,7 @@ architecture behave of datapath is
         port
         (
             clk : in std_logic;
+            reset : in std_logic;
             memWrite : in std_logic;
             memRead : in std_logic;
             address : in std_logic_vector(7 downto 0);
@@ -104,6 +105,7 @@ begin
     port map
     (
         clk=>clk, 
+        reset=>reset,
         memWrite=>memWrite,
         memRead=>memRead,
         address=>address,
