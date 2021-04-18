@@ -63,8 +63,8 @@ architecture behave of datapath is
         (
             opA : in  std_logic_vector(31 downto 0); 
             opB : in  std_logic_vector(31 downto 0); 
-		    aluOp : in  std_logic_vector(3  downto 0); 
-		    result : out std_logic_vector(31 downto 0) 
+				aluOp : in  std_logic_vector(3  downto 0); 
+				result : out std_logic_vector(31 downto 0) 
         );
     end component;
 
@@ -184,7 +184,7 @@ begin
         out_bits => sign_extended
     );
 
-    opB_process : process(ALUSrcB, B, instruction(15 downto 0))
+    opB_process : process(ALUSrcB, B, instruction(15 downto 0), sign_extended)
     begin
         case? ALUSrcB is
             when "00" => opB <= B;
