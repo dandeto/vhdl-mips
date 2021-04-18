@@ -1,4 +1,6 @@
 - fix line 38 on datapath - address <= aluOut when (IorD = '1') else PC;
 - verify that line 70 and 71 are correct - when '0' => PC <= ALUResult(7 downto 0); 
                         		 - when '1' => PC <= ALUOut(7 downto 0);
-- fix line 153 - zero <= '1' when (ALUResult = x"00000000") else '0'; 
+- fix line 153 - zero <= '1' when (ALUResult = x"00000000") else '0';
+- Warning (10036): Verilog HDL or VHDL warning at datapath.vhd(52): object "sign_extended" assigned a value but never read
+
