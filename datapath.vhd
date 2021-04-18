@@ -189,7 +189,7 @@ begin
         case? ALUSrcB is
             when "00" => opB <= B;
             when "01" => opB <= x"00000001";
-            when "1-" => opB <= x"00000000";
+            when "1-" => opB <= sign_extended;
             when others => opB <= "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
         end case?;
     end process;
