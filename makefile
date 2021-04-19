@@ -1,27 +1,19 @@
 default:
-	make sign_extend.vcd 
-	make alu.vcd
-	make mips.vcd
+	make mips.vcd 
 
-sign_extend.vcd: sign_extend.vhd sign_extend_tb.vhd
-	ghdl -a sign_extend.vhd
-	ghdl -a sign_extend_tb.vhd
-	ghdl -e sign_extend_tb
-	ghdl -r sign_extend_tb --vcd=sign_extend.vcd
+mips.vcd: mips_tb.vhd mips.vhd datapath.vhd sign_extend.vhd memory.vhd alu_control.vhd control.vhd alu.vhd program_counter.vhd
 
-alu.vcd: alu.vhd alu_tb.vhd
 	ghdl -a alu.vhd
-	ghdl -a alu_tb.vhd
-	ghdl -e alu_tb
-	ghdl -r alu_tb --vcd=alu.vcd
-
-mips.vcd: mips_tb.vhd mips.vhd 
-	ghdl -a alu.vhd
+	ghdl -a control.vhd
 	ghdl -a alu_control.vhd
 	ghdl -a memory.vhd
 	ghdl -a sign_extend.vhd
+	ghdl -a program_counter.vhd
 	ghdl -a datapath.vhd
-	ghdl -e datapath
+	ghdl -a mips.vhd
+	ghdl -a mips_tb.vhd
+	ghdl -e mips_tb
+	ghdl -r mips_tb --vcd=mips.vcd --stop-time=100ns
 
 clean:
-	rm alu.vcd sign_extend.vcd work-*
+	rm mips.vcd work-*

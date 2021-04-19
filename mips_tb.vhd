@@ -5,7 +5,7 @@ entity mips_tb is
 end mips_tb;
 
 architecture testbench of mips_tb is
-    signal clk : std_logic;
+    signal clk : std_logic := '0';
 	signal reset : std_logic;
 
     component mips
@@ -27,5 +27,8 @@ begin
     stimuli : process
 	begin
         wait;
+        reset <= '1';
+        wait for 10 ns;
+        reset <= '0';
 	end process;
 end testbench;

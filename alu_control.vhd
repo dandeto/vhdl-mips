@@ -11,20 +11,18 @@ end alu_control;
 
 architecture behave of alu_control is begin
     process(Op, functField)
-    variable Op_Field : std_logic_vector(7 downto 0);
-begin
-    Op_Field := Op & functField;
-    -- case? may not synthesize
-        case? Op_Field is
-            when "1---0000" => aluCtrl <= "0010"; -- add 
-            when "1---0010" => aluCtrl <= "0011"; -- sub
-            when "1---0100" => aluCtrl <= "0000"; -- and
-            when "1---0101" => aluCtrl <= "0001"; -- or
-            when "1---1010" => aluCtrl <= "0111"; -- slt
-            when "00------" => aluCtrl <= "0010"; -- lw and sw
-            when "01------" => aluCtrl <= "0110"; -- beq
-            when others => aluCtrl <= "XXXX"; -- 0101 ? 
-        end case?;
-    end process;
+        variable Op_Field : std_logic_vector(7 downto 0);
+    begin
+        Op_Field := Op & functField;
 
+        if    Op_Field = "1---0000" then aluCtrl <= "0010";
+        elsif Op_Field = "1---0010" then aluCtrl <= "0011";
+        elsif Op_Field = "1---0100" then aluCtrl <= "0000";
+        elsif Op_Field = "1---0101" then aluCtrl <= "0001";
+        elsif Op_Field = "1---1010" then aluCtrl <= "0111";
+        elsif Op_Field = "00------" then aluCtrl <= "0010";
+        elsif Op_Field = "01------" then aluCtrl <= "0110";
+        else aluCtrl <= "XXXX";
+        end if;
+    end process;
 end behave; 
