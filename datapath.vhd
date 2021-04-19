@@ -186,12 +186,11 @@ begin
 
     opB_process : process(ALUSrcB, B, instruction(15 downto 0), sign_extended)
     begin
-        case? ALUSrcB is
-            when "00" => opB <= B;
-            when "01" => opB <= x"00000001";
-            when "1-" => opB <= sign_extended;
-            when others => opB <= "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-        end case?;
+        if    ALUSrcB = "00" then opB <= B;
+        elsif ALUSrcB = "01" then opB <= x"00000001";
+        elsif ALUSrcB = "0-" then opB <= sign_extended;
+        else opB <= "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
+        end if;
     end process;
 
     zero <= '1' when (ALUResult = x"00000000") else '0';
