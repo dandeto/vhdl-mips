@@ -15,13 +15,13 @@ architecture behave of alu_control is begin
     begin
         Op_Field := Op & functField;
 
-        if    Op_Field = "1---0000" then aluCtrl <= "0010";
-        elsif Op_Field = "1---0010" then aluCtrl <= "0011";
-        elsif Op_Field = "1---0100" then aluCtrl <= "0000";
-        elsif Op_Field = "1---0101" then aluCtrl <= "0001";
-        elsif Op_Field = "1---1010" then aluCtrl <= "0111";
-        elsif Op_Field = "00------" then aluCtrl <= "0010";
-        elsif Op_Field = "01------" then aluCtrl <= "0110";
+        if    Op_Field = "1---0000" then aluCtrl <= "0010"; -- add
+        elsif Op_Field = "1---0010" then aluCtrl <= "0110"; -- sub
+        elsif Op_Field = "1---0100" then aluCtrl <= "0000"; -- AND
+        elsif Op_Field = "1---0101" then aluCtrl <= "0001"; -- OR
+        elsif Op_Field = "1---1010" then aluCtrl <= "0111"; -- SLT
+        elsif Op_Field = "00------" then aluCtrl <= "0010"; -- lw sw
+        elsif Op_Field = "01------" then aluCtrl <= "0110"; -- beq
         else aluCtrl <= "XXXX";
         end if;
     end process;

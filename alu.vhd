@@ -18,7 +18,7 @@ architecture behave of alu is begin
 			when "0000" => result <= opA and opB; -- and
 			when "0001" => result <= opA or opB; -- or
 			when "0010" => result <= std_logic_vector(to_signed(to_integer(signed(opA)) + to_integer(signed(opB)), 32)); -- add
-			when "0011" => result <= std_logic_vector(to_signed(to_integer(signed(opA)) - to_integer(signed(opB)), 32)); -- subtract
+			when "0110" => result <= std_logic_vector(to_signed(to_integer(signed(opA)) - to_integer(signed(opB)), 32)); -- subtract
 			when "0111" =>
 				if(opA < opB) then 
 					result <= "11111111111111111111111111111111"; -- set on less than
