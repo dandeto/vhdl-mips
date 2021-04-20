@@ -30,5 +30,8 @@ begin
         wait for 10 ns;
         reset <= '0';
         wait;
+        reset <= '1';
+        wait for 10 ns;
+        reset <= '0';
 	end process;
 end testbench;
