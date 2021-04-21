@@ -26,18 +26,14 @@ begin
     );
 
     process begin
-        wait for 1 ns;
-        in_bits <= x"0000";
-
-        wait for 1 ns;
         in_bits <= x"0001";
 
         wait for 1 ns;
-        in_bits <= x"1111";
-        wait for 1 ns;
+        in_bits <= x"FFFF";
 
         wait for 1 ns;
-        in_bits <= x"FFFF";
+        in_bits <= "1000000000000000";
+
         wait for 1 ns;
         
         wait;

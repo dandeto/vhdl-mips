@@ -35,8 +35,8 @@ architecture behave of datapath is
 
     signal memData : std_logic_vector(31 downto 0); -- holds data read from memory
 
-    signal A : std_logic_vector(31 downto 0);
-    signal B : std_logic_vector(31 downto 0);
+    signal A : std_logic_vector(31 downto 0); -- intermidiate register
+    signal B : std_logic_vector(31 downto 0); -- intermidiate register
 
     signal ALUResult : std_logic_vector(31 downto 0);
 
