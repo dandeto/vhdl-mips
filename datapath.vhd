@@ -63,8 +63,8 @@ architecture behave of datapath is
         (
             opA : in  std_logic_vector(31 downto 0); 
             opB : in  std_logic_vector(31 downto 0); 
-				aluOp : in  std_logic_vector(3  downto 0); 
-				result : out std_logic_vector(31 downto 0) 
+			aluOp : in  std_logic_vector(3  downto 0); 
+			result : out std_logic_vector(31 downto 0) 
         );
     end component;
 
@@ -139,8 +139,11 @@ begin
     da <= reg(to_integer(unsigned(instruction(25 downto 21)))) when (to_integer(unsigned(instruction(25 downto 21))) /= 0) 
     else x"00000000";
 
+    --da <= reg(to_integer(unsigned(instruction(25 downto 21))));
+
     db <= reg(to_integer(unsigned(instruction(20 downto 16)))) when (to_integer(unsigned(instruction(20 downto 16))) /= 0) 
     else x"00000000";
+    --db <= reg(to_integer(unsigned(instruction(20 downto 16))));
 
     reg_dst : process(clk) begin
         if rising_edge(clk) then
@@ -186,11 +189,12 @@ begin
 
     opB_process : process(ALUSrcB, B, instruction(15 downto 0), sign_extended)
     begin
-        if    ALUSrcB = "00" then opB <= B;
-        elsif ALUSrcB = "01" then opB <= x"00000001";
-        elsif ALUSrcB = "0-" then opB <= sign_extended;
-        else opB <= "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX";
-        end if;
+        case? ALUSrcB is
+            when "00" => opB <= B; -- add 
+            when "01" => opB <= x"00000001"; -- sub
+            when "1-" => opB <= sign_extended; -- and
+            when others => opB <= "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"; -- 0101 ? 
+        end case?;
     end process;
 
     zero <= '1' when (ALUResult = x"00000000") else '0';
