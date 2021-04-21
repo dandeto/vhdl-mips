@@ -1,5 +1,5 @@
 Analysis & Synthesis report for vhdl-mips
-Wed Apr 21 14:24:40 2021
+Wed Apr 21 15:33:49 2021
 Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 
 
@@ -13,12 +13,20 @@ Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
   5. Analysis & Synthesis Source Files Read
   6. Analysis & Synthesis Resource Usage Summary
   7. Analysis & Synthesis Resource Utilization by Entity
-  8. General Register Statistics
-  9. Parameter Settings for User Entity Instance: mips:mips|datapath:dp|program_counter:PC_inst
- 10. Port Connectivity Checks: "mips:mips|datapath:dp|sign_extend:se"
- 11. Post-Synthesis Netlist Statistics for Top Partition
- 12. Elapsed Time Per Partition
- 13. Analysis & Synthesis Messages
+  8. Analysis & Synthesis RAM Summary
+  9. General Register Statistics
+ 10. Registers Added for RAM Pass-Through Logic
+ 11. Multiplexer Restructuring Statistics (Restructuring Performed)
+ 12. Source assignments for mips:mips|datapath:dp|altsyncram:reg_rtl_0|altsyncram_j6d1:auto_generated
+ 13. Source assignments for mips:mips|datapath:dp|altsyncram:reg_rtl_1|altsyncram_j6d1:auto_generated
+ 14. Parameter Settings for User Entity Instance: mips:mips|datapath:dp|program_counter:PC_inst
+ 15. Parameter Settings for Inferred Entity Instance: mips:mips|datapath:dp|altsyncram:reg_rtl_0
+ 16. Parameter Settings for Inferred Entity Instance: mips:mips|datapath:dp|altsyncram:reg_rtl_1
+ 17. altsyncram Parameter Settings by Entity Instance
+ 18. Port Connectivity Checks: "mips:mips|datapath:dp|sign_extend:se"
+ 19. Post-Synthesis Netlist Statistics for Top Partition
+ 20. Elapsed Time Per Partition
+ 21. Analysis & Synthesis Messages
 
 
 
@@ -44,18 +52,18 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Analysis & Synthesis Summary                                                     ;
 +------------------------------------+---------------------------------------------+
-; Analysis & Synthesis Status        ; Successful - Wed Apr 21 14:24:40 2021       ;
+; Analysis & Synthesis Status        ; Successful - Wed Apr 21 15:33:49 2021       ;
 ; Quartus Prime Version              ; 17.1.0 Build 590 10/25/2017 SJ Lite Edition ;
 ; Revision Name                      ; vhdl-mips                                   ;
 ; Top-level Entity Name              ; DE10_LITE_Golden_Top                        ;
 ; Family                             ; MAX 10                                      ;
-; Total logic elements               ; 0                                           ;
-;     Total combinational functions  ; 0                                           ;
-;     Dedicated logic registers      ; 0                                           ;
-; Total registers                    ; 0                                           ;
+; Total logic elements               ; 14,485                                      ;
+;     Total combinational functions  ; 6,281                                       ;
+;     Dedicated logic registers      ; 8,443                                       ;
+; Total registers                    ; 8443                                        ;
 ; Total pins                         ; 185                                         ;
 ; Total virtual pins                 ; 0                                           ;
-; Total memory bits                  ; 0                                           ;
+; Total memory bits                  ; 2,048                                       ;
 ; Embedded Multiplier 9-bit elements ; 0                                           ;
 ; Total PLLs                         ; 0                                           ;
 ; UFM blocks                         ; 0                                           ;
@@ -158,70 +166,112 @@ refer to the applicable agreement for further details.
 ; Number detected on machine ; 12          ;
 ; Maximum allowed            ; 12          ;
 ;                            ;             ;
-; Average used               ; 1.00        ;
-; Maximum used               ; 1           ;
+; Average used               ; 1.02        ;
+; Maximum used               ; 12          ;
 ;                            ;             ;
 ; Usage by Processor         ; % Time Used ;
 ;     Processor 1            ; 100.0%      ;
+;     Processor 2            ;   0.4%      ;
+;     Processor 3            ;   0.2%      ;
+;     Processor 4            ;   0.2%      ;
+;     Processor 5            ;   0.2%      ;
+;     Processor 6            ;   0.2%      ;
+;     Processor 7            ;   0.2%      ;
+;     Processor 8            ;   0.2%      ;
+;     Processor 9            ;   0.1%      ;
+;     Processors 10-12       ;   0.1%      ;
 +----------------------------+-------------+
 
 
-+----------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Source Files Read                                                                                                             ;
-+----------------------------------+-----------------+-----------------+-------------------------------------------------------------------+---------+
-; File Name with User-Entered Path ; Used in Netlist ; File Type       ; File Name with Absolute Path                                      ; Library ;
-+----------------------------------+-----------------+-----------------+-------------------------------------------------------------------+---------+
-; ../sign_extend.vhd               ; yes             ; User VHDL File  ; D:/Documents/_UAH/VLSI/vhdl-mips/sign_extend.vhd                  ;         ;
-; ../program_counter.vhd           ; yes             ; User VHDL File  ; D:/Documents/_UAH/VLSI/vhdl-mips/program_counter.vhd              ;         ;
-; ../mips.vhd                      ; yes             ; User VHDL File  ; D:/Documents/_UAH/VLSI/vhdl-mips/mips.vhd                         ;         ;
-; ../memory.vhd                    ; yes             ; User VHDL File  ; D:/Documents/_UAH/VLSI/vhdl-mips/memory.vhd                       ;         ;
-; ../datapath.vhd                  ; yes             ; User VHDL File  ; D:/Documents/_UAH/VLSI/vhdl-mips/datapath.vhd                     ;         ;
-; ../control.vhd                   ; yes             ; User VHDL File  ; D:/Documents/_UAH/VLSI/vhdl-mips/control.vhd                      ;         ;
-; ../alu_control.vhd               ; yes             ; User VHDL File  ; D:/Documents/_UAH/VLSI/vhdl-mips/alu_control.vhd                  ;         ;
-; ../alu.vhd                       ; yes             ; User VHDL File  ; D:/Documents/_UAH/VLSI/vhdl-mips/alu.vhd                          ;         ;
-; DE10_LITE_Golden_Top.vhd         ; yes             ; User VHDL File  ; D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd ;         ;
-+----------------------------------+-----------------+-----------------+-------------------------------------------------------------------+---------+
++----------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Source Files Read                                                                                                                                     ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------+---------+
+; File Name with User-Entered Path ; Used in Netlist ; File Type                    ; File Name with Absolute Path                                                 ; Library ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------+---------+
+; ../sign_extend.vhd               ; yes             ; User VHDL File               ; D:/Documents/_UAH/VLSI/vhdl-mips/sign_extend.vhd                             ;         ;
+; ../program_counter.vhd           ; yes             ; User VHDL File               ; D:/Documents/_UAH/VLSI/vhdl-mips/program_counter.vhd                         ;         ;
+; ../mips.vhd                      ; yes             ; User VHDL File               ; D:/Documents/_UAH/VLSI/vhdl-mips/mips.vhd                                    ;         ;
+; ../memory.vhd                    ; yes             ; User VHDL File               ; D:/Documents/_UAH/VLSI/vhdl-mips/memory.vhd                                  ;         ;
+; ../datapath.vhd                  ; yes             ; User VHDL File               ; D:/Documents/_UAH/VLSI/vhdl-mips/datapath.vhd                                ;         ;
+; ../control.vhd                   ; yes             ; User VHDL File               ; D:/Documents/_UAH/VLSI/vhdl-mips/control.vhd                                 ;         ;
+; ../alu_control.vhd               ; yes             ; User VHDL File               ; D:/Documents/_UAH/VLSI/vhdl-mips/alu_control.vhd                             ;         ;
+; ../alu.vhd                       ; yes             ; User VHDL File               ; D:/Documents/_UAH/VLSI/vhdl-mips/alu.vhd                                     ;         ;
+; DE10_LITE_Golden_Top.vhd         ; yes             ; User VHDL File               ; D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd            ;         ;
+; altsyncram.tdf                   ; yes             ; Megafunction                 ; c:/intelfpga_lite/17.1/quartus/libraries/megafunctions/altsyncram.tdf        ;         ;
+; stratix_ram_block.inc            ; yes             ; Megafunction                 ; c:/intelfpga_lite/17.1/quartus/libraries/megafunctions/stratix_ram_block.inc ;         ;
+; lpm_mux.inc                      ; yes             ; Megafunction                 ; c:/intelfpga_lite/17.1/quartus/libraries/megafunctions/lpm_mux.inc           ;         ;
+; lpm_decode.inc                   ; yes             ; Megafunction                 ; c:/intelfpga_lite/17.1/quartus/libraries/megafunctions/lpm_decode.inc        ;         ;
+; aglobal171.inc                   ; yes             ; Megafunction                 ; c:/intelfpga_lite/17.1/quartus/libraries/megafunctions/aglobal171.inc        ;         ;
+; a_rdenreg.inc                    ; yes             ; Megafunction                 ; c:/intelfpga_lite/17.1/quartus/libraries/megafunctions/a_rdenreg.inc         ;         ;
+; altrom.inc                       ; yes             ; Megafunction                 ; c:/intelfpga_lite/17.1/quartus/libraries/megafunctions/altrom.inc            ;         ;
+; altram.inc                       ; yes             ; Megafunction                 ; c:/intelfpga_lite/17.1/quartus/libraries/megafunctions/altram.inc            ;         ;
+; altdpram.inc                     ; yes             ; Megafunction                 ; c:/intelfpga_lite/17.1/quartus/libraries/megafunctions/altdpram.inc          ;         ;
+; db/altsyncram_j6d1.tdf           ; yes             ; Auto-Generated Megafunction  ; D:/Documents/_UAH/VLSI/vhdl-mips/quartus/db/altsyncram_j6d1.tdf              ;         ;
++----------------------------------+-----------------+------------------------------+------------------------------------------------------------------------------+---------+
 
 
-+--------------------------------------------------------------+
-; Analysis & Synthesis Resource Usage Summary                  ;
-+---------------------------------------------+----------------+
-; Resource                                    ; Usage          ;
-+---------------------------------------------+----------------+
-;                                             ;                ;
-; Total combinational functions               ; 0              ;
-; Logic element usage by number of LUT inputs ;                ;
-;     -- 4 input functions                    ; 0              ;
-;     -- 3 input functions                    ; 0              ;
-;     -- <=2 input functions                  ; 0              ;
-;                                             ;                ;
-; Logic elements by mode                      ;                ;
-;     -- normal mode                          ; 0              ;
-;     -- arithmetic mode                      ; 0              ;
-;                                             ;                ;
-; Total registers                             ; 0              ;
-;     -- Dedicated logic registers            ; 0              ;
-;     -- I/O registers                        ; 0              ;
-;                                             ;                ;
-; I/O pins                                    ; 185            ;
-;                                             ;                ;
-; Embedded Multiplier 9-bit elements          ; 0              ;
-;                                             ;                ;
-; Maximum fan-out node                        ; LEDR[9]~output ;
-; Maximum fan-out                             ; 1              ;
-; Total fan-out                               ; 196            ;
-; Average fan-out                             ; 0.52           ;
-+---------------------------------------------+----------------+
++-----------------------------------------------------------+
+; Analysis & Synthesis Resource Usage Summary               ;
++---------------------------------------------+-------------+
+; Resource                                    ; Usage       ;
++---------------------------------------------+-------------+
+; Estimated Total logic elements              ; 14,485      ;
+;                                             ;             ;
+; Total combinational functions               ; 6281        ;
+; Logic element usage by number of LUT inputs ;             ;
+;     -- 4 input functions                    ; 5983        ;
+;     -- 3 input functions                    ; 197         ;
+;     -- <=2 input functions                  ; 101         ;
+;                                             ;             ;
+; Logic elements by mode                      ;             ;
+;     -- normal mode                          ; 6218        ;
+;     -- arithmetic mode                      ; 63          ;
+;                                             ;             ;
+; Total registers                             ; 8443        ;
+;     -- Dedicated logic registers            ; 8443        ;
+;     -- I/O registers                        ; 0           ;
+;                                             ;             ;
+; I/O pins                                    ; 185         ;
+; Total memory bits                           ; 2048        ;
+;                                             ;             ;
+; Embedded Multiplier 9-bit elements          ; 0           ;
+;                                             ;             ;
+; Maximum fan-out node                        ; SW[1]~input ;
+; Maximum fan-out                             ; 8507        ;
+; Total fan-out                               ; 50953       ;
+; Average fan-out                             ; 3.36        ;
++---------------------------------------------+-------------+
 
 
-+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
-; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                           ;
-+----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------+----------------------+--------------+
-; Compilation Hierarchy Node ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name   ; Entity Name          ; Library Name ;
-+----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------+----------------------+--------------+
-; |DE10_LITE_Golden_Top      ; 0 (0)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 185  ; 0            ; 0          ; |DE10_LITE_Golden_Top ; DE10_LITE_Golden_Top ; work         ;
-+----------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-----------------------+----------------------+--------------+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis Resource Utilization by Entity                                                                                                                                                                                                                                                                                       ;
++----------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-------------------------------------------------------------------------------------------------+----------------------+--------------+
+; Compilation Hierarchy Node                   ; Combinational ALUTs ; Dedicated Logic Registers ; Memory Bits ; UFM Blocks ; DSP Elements ; DSP 9x9 ; DSP 18x18 ; Pins ; Virtual Pins ; ADC blocks ; Full Hierarchy Name                                                                             ; Entity Name          ; Library Name ;
++----------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-------------------------------------------------------------------------------------------------+----------------------+--------------+
+; |DE10_LITE_Golden_Top                        ; 6281 (0)            ; 8443 (0)                  ; 2048        ; 0          ; 0            ; 0       ; 0         ; 185  ; 0            ; 0          ; |DE10_LITE_Golden_Top                                                                           ; DE10_LITE_Golden_Top ; work         ;
+;    |mips:mips|                               ; 6281 (0)            ; 8443 (0)                  ; 2048        ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |DE10_LITE_Golden_Top|mips:mips                                                                 ; mips                 ; work         ;
+;       |alu_control:alu_control|              ; 4 (4)               ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |DE10_LITE_Golden_Top|mips:mips|alu_control:alu_control                                         ; alu_control          ; work         ;
+;       |control:ctrl|                         ; 25 (25)             ; 4 (4)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |DE10_LITE_Golden_Top|mips:mips|control:ctrl                                                    ; control              ; work         ;
+;       |datapath:dp|                          ; 6252 (204)          ; 8439 (239)                ; 2048        ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp                                                     ; datapath             ; work         ;
+;          |altsyncram:reg_rtl_0|              ; 0 (0)               ; 0 (0)                     ; 1024        ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|altsyncram:reg_rtl_0                                ; altsyncram           ; work         ;
+;             |altsyncram_j6d1:auto_generated| ; 0 (0)               ; 0 (0)                     ; 1024        ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|altsyncram:reg_rtl_0|altsyncram_j6d1:auto_generated ; altsyncram_j6d1      ; work         ;
+;          |altsyncram:reg_rtl_1|              ; 0 (0)               ; 0 (0)                     ; 1024        ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|altsyncram:reg_rtl_1                                ; altsyncram           ; work         ;
+;             |altsyncram_j6d1:auto_generated| ; 0 (0)               ; 0 (0)                     ; 1024        ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|altsyncram:reg_rtl_1|altsyncram_j6d1:auto_generated ; altsyncram_j6d1      ; work         ;
+;          |alu:alu_ints|                      ; 229 (229)           ; 0 (0)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|alu:alu_ints                                        ; alu                  ; work         ;
+;          |memory:memory_inst|                ; 5809 (5809)         ; 8192 (8192)               ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst                                  ; memory               ; work         ;
+;          |program_counter:PC_inst|           ; 10 (10)             ; 8 (8)                     ; 0           ; 0          ; 0            ; 0       ; 0         ; 0    ; 0            ; 0          ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|program_counter:PC_inst                             ; program_counter      ; work         ;
++----------------------------------------------+---------------------+---------------------------+-------------+------------+--------------+---------+-----------+------+--------------+------------+-------------------------------------------------------------------------------------------------+----------------------+--------------+
 Note: For table entries with two numbers listed, the numbers in parentheses indicate the number of resources of the given type used by the specific entity alone. The numbers listed outside of parentheses indicate the total resources of the given type used by the specific entity and all of its sub-entities in the hierarchy.
+
+
++------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Analysis & Synthesis RAM Summary                                                                                                                                                         ;
++--------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------+
+; Name                                                                                 ; Type ; Mode             ; Port A Depth ; Port A Width ; Port B Depth ; Port B Width ; Size ; MIF  ;
++--------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------+
+; mips:mips|datapath:dp|altsyncram:reg_rtl_0|altsyncram_j6d1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 32           ; 32           ; 32           ; 32           ; 1024 ; None ;
+; mips:mips|datapath:dp|altsyncram:reg_rtl_1|altsyncram_j6d1:auto_generated|ALTSYNCRAM ; AUTO ; Simple Dual Port ; 32           ; 32           ; 32           ; 32           ; 1024 ; None ;
++--------------------------------------------------------------------------------------+------+------------------+--------------+--------------+--------------+--------------+------+------+
 
 
 +------------------------------------------------------+
@@ -229,14 +279,174 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 +----------------------------------------------+-------+
 ; Statistic                                    ; Value ;
 +----------------------------------------------+-------+
-; Total registers                              ; 0     ;
-; Number of registers using Synchronous Clear  ; 0     ;
-; Number of registers using Synchronous Load   ; 0     ;
+; Total registers                              ; 8443  ;
+; Number of registers using Synchronous Clear  ; 9     ;
+; Number of registers using Synchronous Load   ; 1     ;
 ; Number of registers using Asynchronous Clear ; 0     ;
 ; Number of registers using Asynchronous Load  ; 0     ;
-; Number of registers using Clock Enable       ; 0     ;
+; Number of registers using Clock Enable       ; 8235  ;
 ; Number of registers using Preset             ; 0     ;
 +----------------------------------------------+-------+
+
+
++------------------------------------------------------------------------------+
+; Registers Added for RAM Pass-Through Logic                                   ;
++--------------------------------------------+---------------------------------+
+; Register Name                              ; RAM Name                        ;
++--------------------------------------------+---------------------------------+
+; mips:mips|datapath:dp|reg_rtl_0_bypass[0]  ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[1]  ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[2]  ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[3]  ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[4]  ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[5]  ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[6]  ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[7]  ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[8]  ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[9]  ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[10] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[11] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[12] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[13] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[14] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[15] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[16] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[17] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[18] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[19] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[20] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[21] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[22] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[23] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[24] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[25] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[26] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[27] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[28] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[29] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[30] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[31] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[32] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[33] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[34] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[35] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[36] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[37] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[38] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[39] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[40] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[41] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_0_bypass[42] ; mips:mips|datapath:dp|reg_rtl_0 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[0]  ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[1]  ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[2]  ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[3]  ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[4]  ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[5]  ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[6]  ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[7]  ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[8]  ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[9]  ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[10] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[11] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[12] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[13] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[14] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[15] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[16] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[17] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[18] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[19] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[20] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[21] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[22] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[23] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[24] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[25] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[26] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[27] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[28] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[29] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[30] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[31] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[32] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[33] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[34] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[35] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[36] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[37] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[38] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[39] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[40] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[41] ; mips:mips|datapath:dp|reg_rtl_1 ;
+; mips:mips|datapath:dp|reg_rtl_1_bypass[42] ; mips:mips|datapath:dp|reg_rtl_1 ;
++--------------------------------------------+---------------------------------+
+
+
++-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+
+; Multiplexer Restructuring Statistics (Restructuring Performed)                                                                                                                            ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------------------------+
+; Multiplexer Inputs ; Bus Width ; Baseline Area ; Area if Restructured ; Saving if Restructured ; Registered ; Example Multiplexer Output                                                  ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------------------------+
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[0][23]   ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[1][7]    ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[2][2]    ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[3][16]   ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[4][28]   ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[5][7]    ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[6][26]   ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[7][31]   ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[8][14]   ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[9][30]   ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[10][17]  ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[11][23]  ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[12][16]  ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[13][25]  ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[14][5]   ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[15][20]  ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[64][11]  ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[68][18]  ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[72][27]  ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[128][5]  ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[129][3]  ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[130][30] ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[131][20] ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[132][20] ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[133][20] ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[134][27] ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[135][4]  ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[136][25] ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[137][6]  ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[138][24] ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[139][3]  ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[140][6]  ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 32 LEs               ; 32 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|mem[141][22] ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|A[4]                            ;
+; 3:1                ; 32 bits   ; 64 LEs        ; 64 LEs               ; 0 LEs                  ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|B[5]                            ;
+; 4:1                ; 8 bits    ; 16 LEs        ; 16 LEs               ; 0 LEs                  ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|program_counter:PC_inst|PC[7]   ;
+; 17:1               ; 2 bits    ; 22 LEs        ; 12 LEs               ; 10 LEs                 ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|control:ctrl|state[1]                       ;
+; 256:1              ; 7 bits    ; 1190 LEs      ; 1190 LEs             ; 0 LEs                  ; Yes        ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|mdr[8]                          ;
+; 6:1                ; 32 bits   ; 128 LEs       ; 96 LEs               ; 32 LEs                 ; No         ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|alu:alu_ints|Mux14              ;
+; 256:1              ; 25 bits   ; 4250 LEs      ; 4250 LEs             ; 0 LEs                  ; No         ; |DE10_LITE_Golden_Top|mips:mips|datapath:dp|memory:memory_inst|Mux15        ;
++--------------------+-----------+---------------+----------------------+------------------------+------------+-----------------------------------------------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------+
+; Source assignments for mips:mips|datapath:dp|altsyncram:reg_rtl_0|altsyncram_j6d1:auto_generated ;
++---------------------------------+--------------------+------+------------------------------------+
+; Assignment                      ; Value              ; From ; To                                 ;
++---------------------------------+--------------------+------+------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                  ;
++---------------------------------+--------------------+------+------------------------------------+
+
+
++--------------------------------------------------------------------------------------------------+
+; Source assignments for mips:mips|datapath:dp|altsyncram:reg_rtl_1|altsyncram_j6d1:auto_generated ;
++---------------------------------+--------------------+------+------------------------------------+
+; Assignment                      ; Value              ; From ; To                                 ;
++---------------------------------+--------------------+------+------------------------------------+
+; OPTIMIZE_POWER_DURING_SYNTHESIS ; NORMAL_COMPILATION ; -    ; -                                  ;
++---------------------------------+--------------------+------+------------------------------------+
 
 
 +--------------------------------------------------------------------------------------------+
@@ -247,6 +457,159 @@ Note: For table entries with two numbers listed, the numbers in parentheses indi
 ; pcstart        ; 128   ; Signed Integer                                                    ;
 +----------------+-------+-------------------------------------------------------------------+
 Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: mips:mips|datapath:dp|altsyncram:reg_rtl_0 ;
++------------------------------------+----------------------+---------------------------------+
+; Parameter Name                     ; Value                ; Type                            ;
++------------------------------------+----------------------+---------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                         ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                      ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY                    ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE                    ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE                  ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                         ;
+; OPERATION_MODE                     ; DUAL_PORT            ; Untyped                         ;
+; WIDTH_A                            ; 32                   ; Untyped                         ;
+; WIDTHAD_A                          ; 5                    ; Untyped                         ;
+; NUMWORDS_A                         ; 32                   ; Untyped                         ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                         ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                         ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                         ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                         ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                         ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                         ;
+; WIDTH_B                            ; 32                   ; Untyped                         ;
+; WIDTHAD_B                          ; 5                    ; Untyped                         ;
+; NUMWORDS_B                         ; 32                   ; Untyped                         ;
+; INDATA_REG_B                       ; CLOCK1               ; Untyped                         ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                         ;
+; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                         ;
+; ADDRESS_REG_B                      ; CLOCK0               ; Untyped                         ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                         ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                         ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                         ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                         ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                         ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                         ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                         ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                         ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Untyped                         ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                         ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                         ;
+; BYTE_SIZE                          ; 8                    ; Untyped                         ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE            ; Untyped                         ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                         ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                         ;
+; INIT_FILE                          ; UNUSED               ; Untyped                         ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                         ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                         ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL               ; Untyped                         ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                         ;
+; CLOCK_ENABLE_OUTPUT_A              ; NORMAL               ; Untyped                         ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                         ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                         ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                         ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                         ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                         ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                         ;
+; DEVICE_FAMILY                      ; MAX 10               ; Untyped                         ;
+; CBXI_PARAMETER                     ; altsyncram_j6d1      ; Untyped                         ;
++------------------------------------+----------------------+---------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++---------------------------------------------------------------------------------------------+
+; Parameter Settings for Inferred Entity Instance: mips:mips|datapath:dp|altsyncram:reg_rtl_1 ;
++------------------------------------+----------------------+---------------------------------+
+; Parameter Name                     ; Value                ; Type                            ;
++------------------------------------+----------------------+---------------------------------+
+; BYTE_SIZE_BLOCK                    ; 8                    ; Untyped                         ;
+; AUTO_CARRY_CHAINS                  ; ON                   ; AUTO_CARRY                      ;
+; IGNORE_CARRY_BUFFERS               ; OFF                  ; IGNORE_CARRY                    ;
+; AUTO_CASCADE_CHAINS                ; ON                   ; AUTO_CASCADE                    ;
+; IGNORE_CASCADE_BUFFERS             ; OFF                  ; IGNORE_CASCADE                  ;
+; WIDTH_BYTEENA                      ; 1                    ; Untyped                         ;
+; OPERATION_MODE                     ; DUAL_PORT            ; Untyped                         ;
+; WIDTH_A                            ; 32                   ; Untyped                         ;
+; WIDTHAD_A                          ; 5                    ; Untyped                         ;
+; NUMWORDS_A                         ; 32                   ; Untyped                         ;
+; OUTDATA_REG_A                      ; UNREGISTERED         ; Untyped                         ;
+; ADDRESS_ACLR_A                     ; NONE                 ; Untyped                         ;
+; OUTDATA_ACLR_A                     ; NONE                 ; Untyped                         ;
+; WRCONTROL_ACLR_A                   ; NONE                 ; Untyped                         ;
+; INDATA_ACLR_A                      ; NONE                 ; Untyped                         ;
+; BYTEENA_ACLR_A                     ; NONE                 ; Untyped                         ;
+; WIDTH_B                            ; 32                   ; Untyped                         ;
+; WIDTHAD_B                          ; 5                    ; Untyped                         ;
+; NUMWORDS_B                         ; 32                   ; Untyped                         ;
+; INDATA_REG_B                       ; CLOCK1               ; Untyped                         ;
+; WRCONTROL_WRADDRESS_REG_B          ; CLOCK1               ; Untyped                         ;
+; RDCONTROL_REG_B                    ; CLOCK1               ; Untyped                         ;
+; ADDRESS_REG_B                      ; CLOCK0               ; Untyped                         ;
+; OUTDATA_REG_B                      ; UNREGISTERED         ; Untyped                         ;
+; BYTEENA_REG_B                      ; CLOCK1               ; Untyped                         ;
+; INDATA_ACLR_B                      ; NONE                 ; Untyped                         ;
+; WRCONTROL_ACLR_B                   ; NONE                 ; Untyped                         ;
+; ADDRESS_ACLR_B                     ; NONE                 ; Untyped                         ;
+; OUTDATA_ACLR_B                     ; NONE                 ; Untyped                         ;
+; RDCONTROL_ACLR_B                   ; NONE                 ; Untyped                         ;
+; BYTEENA_ACLR_B                     ; NONE                 ; Untyped                         ;
+; WIDTH_BYTEENA_A                    ; 1                    ; Untyped                         ;
+; WIDTH_BYTEENA_B                    ; 1                    ; Untyped                         ;
+; RAM_BLOCK_TYPE                     ; AUTO                 ; Untyped                         ;
+; BYTE_SIZE                          ; 8                    ; Untyped                         ;
+; READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE            ; Untyped                         ;
+; READ_DURING_WRITE_MODE_PORT_A      ; NEW_DATA_NO_NBE_READ ; Untyped                         ;
+; READ_DURING_WRITE_MODE_PORT_B      ; NEW_DATA_NO_NBE_READ ; Untyped                         ;
+; INIT_FILE                          ; UNUSED               ; Untyped                         ;
+; INIT_FILE_LAYOUT                   ; PORT_A               ; Untyped                         ;
+; MAXIMUM_DEPTH                      ; 0                    ; Untyped                         ;
+; CLOCK_ENABLE_INPUT_A               ; NORMAL               ; Untyped                         ;
+; CLOCK_ENABLE_INPUT_B               ; NORMAL               ; Untyped                         ;
+; CLOCK_ENABLE_OUTPUT_A              ; NORMAL               ; Untyped                         ;
+; CLOCK_ENABLE_OUTPUT_B              ; NORMAL               ; Untyped                         ;
+; CLOCK_ENABLE_CORE_A                ; USE_INPUT_CLKEN      ; Untyped                         ;
+; CLOCK_ENABLE_CORE_B                ; USE_INPUT_CLKEN      ; Untyped                         ;
+; ENABLE_ECC                         ; FALSE                ; Untyped                         ;
+; ECC_PIPELINE_STAGE_ENABLED         ; FALSE                ; Untyped                         ;
+; WIDTH_ECCSTATUS                    ; 3                    ; Untyped                         ;
+; DEVICE_FAMILY                      ; MAX 10               ; Untyped                         ;
+; CBXI_PARAMETER                     ; altsyncram_j6d1      ; Untyped                         ;
++------------------------------------+----------------------+---------------------------------+
+Note: In order to hide this table in the UI and the text report file, please set the "Show Parameter Settings in Synthesis Report" option in "Analysis and Synthesis Settings -> More Settings" to "Off".
+
+
++----------------------------------------------------------------------------------------+
+; altsyncram Parameter Settings by Entity Instance                                       ;
++-------------------------------------------+--------------------------------------------+
+; Name                                      ; Value                                      ;
++-------------------------------------------+--------------------------------------------+
+; Number of entity instances                ; 2                                          ;
+; Entity Instance                           ; mips:mips|datapath:dp|altsyncram:reg_rtl_0 ;
+;     -- OPERATION_MODE                     ; DUAL_PORT                                  ;
+;     -- WIDTH_A                            ; 32                                         ;
+;     -- NUMWORDS_A                         ; 32                                         ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                               ;
+;     -- WIDTH_B                            ; 32                                         ;
+;     -- NUMWORDS_B                         ; 32                                         ;
+;     -- ADDRESS_REG_B                      ; CLOCK0                                     ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                               ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                       ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                  ;
+; Entity Instance                           ; mips:mips|datapath:dp|altsyncram:reg_rtl_1 ;
+;     -- OPERATION_MODE                     ; DUAL_PORT                                  ;
+;     -- WIDTH_A                            ; 32                                         ;
+;     -- NUMWORDS_A                         ; 32                                         ;
+;     -- OUTDATA_REG_A                      ; UNREGISTERED                               ;
+;     -- WIDTH_B                            ; 32                                         ;
+;     -- NUMWORDS_B                         ; 32                                         ;
+;     -- ADDRESS_REG_B                      ; CLOCK0                                     ;
+;     -- OUTDATA_REG_B                      ; UNREGISTERED                               ;
+;     -- RAM_BLOCK_TYPE                     ; AUTO                                       ;
+;     -- READ_DURING_WRITE_MODE_MIXED_PORTS ; DONT_CARE                                  ;
++-------------------------------------------+--------------------------------------------+
 
 
 +--------------------------------------------------------------------------------------------------------------------+
@@ -260,15 +623,29 @@ Note: In order to hide this table in the UI and the text report file, please set
 
 +-----------------------------------------------------+
 ; Post-Synthesis Netlist Statistics for Top Partition ;
-+--------------------+--------------------------------+
-; Type               ; Count                          ;
-+--------------------+--------------------------------+
-; boundary_port      ; 185                            ;
-; cycloneiii_io_obuf ; 10                             ;
-;                    ;                                ;
-; Max LUT depth      ; 0.00                           ;
-; Average LUT depth  ; 0.00                           ;
-+--------------------+--------------------------------+
++-----------------------+-----------------------------+
+; Type                  ; Count                       ;
++-----------------------+-----------------------------+
+; boundary_port         ; 185                         ;
+; cycloneiii_ff         ; 8443                        ;
+;     ENA               ; 8227                        ;
+;     ENA SCLR          ; 7                           ;
+;     ENA SLD           ; 1                           ;
+;     SCLR              ; 2                           ;
+;     plain             ; 206                         ;
+; cycloneiii_io_obuf    ; 10                          ;
+; cycloneiii_lcell_comb ; 6281                        ;
+;     arith             ; 63                          ;
+;         3 data inputs ; 63                          ;
+;     normal            ; 6218                        ;
+;         2 data inputs ; 101                         ;
+;         3 data inputs ; 134                         ;
+;         4 data inputs ; 5983                        ;
+; cycloneiii_ram_block  ; 64                          ;
+;                       ;                             ;
+; Max LUT depth         ; 12.80                       ;
+; Average LUT depth     ; 6.95                        ;
++-----------------------+-----------------------------+
 
 
 +-------------------------------+
@@ -276,7 +653,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 +----------------+--------------+
 ; Partition Name ; Elapsed Time ;
 +----------------+--------------+
-; Top            ; 00:00:00     ;
+; Top            ; 00:00:20     ;
 +----------------+--------------+
 
 
@@ -286,7 +663,7 @@ Note: In order to hide this table in the UI and the text report file, please set
 Info: *******************************************************************
 Info: Running Quartus Prime Analysis & Synthesis
     Info: Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
-    Info: Processing started: Wed Apr 21 14:24:30 2021
+    Info: Processing started: Wed Apr 21 15:33:16 2021
 Info: Command: quartus_map --read_settings_files=on --write_settings_files=off vhdl-mips -c vhdl-mips
 Info (125069): Default assignment values were changed in the current version of the Quartus Prime software -- changes to default assignments values are contained in file c:/intelfpga_lite/17.1/quartus/bin64/assignment_defaults.qdf
 Warning (18236): Number of processors has not been specified which may cause overloading on shared machines.  Set the global assignment NUM_PARALLEL_PROCESSORS in your QSF to an appropriate value for best performance.
@@ -298,7 +675,7 @@ Info (12021): Found 2 design units, including 1 entities, in source file /docume
     Info (12022): Found design unit 1: program_counter-behave File: D:/Documents/_UAH/VLSI/vhdl-mips/program_counter.vhd Line: 19
     Info (12023): Found entity 1: program_counter File: D:/Documents/_UAH/VLSI/vhdl-mips/program_counter.vhd Line: 5
 Info (12021): Found 2 design units, including 1 entities, in source file /documents/_uah/vlsi/vhdl-mips/mips.vhd
-    Info (12022): Found design unit 1: mips-behave File: D:/Documents/_UAH/VLSI/vhdl-mips/mips.vhd Line: 12
+    Info (12022): Found design unit 1: mips-behave File: D:/Documents/_UAH/VLSI/vhdl-mips/mips.vhd Line: 14
     Info (12023): Found entity 1: mips File: D:/Documents/_UAH/VLSI/vhdl-mips/mips.vhd Line: 4
 Info (12021): Found 2 design units, including 1 entities, in source file /documents/_uah/vlsi/vhdl-mips/memory.vhd
     Info (12022): Found design unit 1: memory-behave File: D:/Documents/_UAH/VLSI/vhdl-mips/memory.vhd Line: 18
@@ -319,31 +696,88 @@ Info (12021): Found 2 design units, including 1 entities, in source file de10_li
     Info (12022): Found design unit 1: DE10_LITE_Golden_Top-ppl_type File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 69
     Info (12023): Found entity 1: DE10_LITE_Golden_Top File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 20
 Info (12127): Elaborating entity "DE10_LITE_Golden_Top" for the top level hierarchy
-Info (12129): Elaborating entity "mips" using architecture "A:behave" for hierarchy "mips:mips" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 79
-Info (12128): Elaborating entity "datapath" for hierarchy "mips:mips|datapath:dp" File: D:/Documents/_UAH/VLSI/vhdl-mips/mips.vhd Line: 55
+Info (12129): Elaborating entity "mips" using architecture "A:behave" for hierarchy "mips:mips" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 86
+Info (12128): Elaborating entity "datapath" for hierarchy "mips:mips|datapath:dp" File: D:/Documents/_UAH/VLSI/vhdl-mips/mips.vhd Line: 57
 Info (12128): Elaborating entity "memory" for hierarchy "mips:mips|datapath:dp|memory:memory_inst" File: D:/Documents/_UAH/VLSI/vhdl-mips/datapath.vhd Line: 104
 Info (12128): Elaborating entity "program_counter" for hierarchy "mips:mips|datapath:dp|program_counter:PC_inst" File: D:/Documents/_UAH/VLSI/vhdl-mips/datapath.vhd Line: 117
 Info (12128): Elaborating entity "sign_extend" for hierarchy "mips:mips|datapath:dp|sign_extend:se" File: D:/Documents/_UAH/VLSI/vhdl-mips/datapath.vhd Line: 180
 Info (12128): Elaborating entity "alu" for hierarchy "mips:mips|datapath:dp|alu:alu_ints" File: D:/Documents/_UAH/VLSI/vhdl-mips/datapath.vhd Line: 199
-Info (12129): Elaborating entity "control" using architecture "A:behave" for hierarchy "mips:mips|control:ctrl" File: D:/Documents/_UAH/VLSI/vhdl-mips/mips.vhd Line: 63
-Info (12129): Elaborating entity "alu_control" using architecture "A:behave" for hierarchy "mips:mips|alu_control:alu_control" File: D:/Documents/_UAH/VLSI/vhdl-mips/mips.vhd Line: 83
+Info (12129): Elaborating entity "control" using architecture "A:behave" for hierarchy "mips:mips|control:ctrl" File: D:/Documents/_UAH/VLSI/vhdl-mips/mips.vhd Line: 65
+Info (12129): Elaborating entity "alu_control" using architecture "A:behave" for hierarchy "mips:mips|alu_control:alu_control" File: D:/Documents/_UAH/VLSI/vhdl-mips/mips.vhd Line: 85
+Warning (276020): Inferred RAM node "mips:mips|datapath:dp|reg_rtl_0" from synchronous design logic.  Pass-through logic has been added to match the read-during-write behavior of the original design.
+Warning (276020): Inferred RAM node "mips:mips|datapath:dp|reg_rtl_1" from synchronous design logic.  Pass-through logic has been added to match the read-during-write behavior of the original design.
+Info (19000): Inferred 2 megafunctions from design logic
+    Info (276029): Inferred altsyncram megafunction from the following design logic: "mips:mips|datapath:dp|reg_rtl_0" 
+        Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
+        Info (286033): Parameter WIDTH_A set to 32
+        Info (286033): Parameter WIDTHAD_A set to 5
+        Info (286033): Parameter NUMWORDS_A set to 32
+        Info (286033): Parameter WIDTH_B set to 32
+        Info (286033): Parameter WIDTHAD_B set to 5
+        Info (286033): Parameter NUMWORDS_B set to 32
+        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
+        Info (286033): Parameter OUTDATA_REG_B set to UNREGISTERED
+        Info (286033): Parameter ADDRESS_ACLR_B set to NONE
+        Info (286033): Parameter OUTDATA_ACLR_B set to NONE
+        Info (286033): Parameter ADDRESS_REG_B set to CLOCK0
+        Info (286033): Parameter INDATA_ACLR_A set to NONE
+        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
+    Info (276029): Inferred altsyncram megafunction from the following design logic: "mips:mips|datapath:dp|reg_rtl_1" 
+        Info (286033): Parameter OPERATION_MODE set to DUAL_PORT
+        Info (286033): Parameter WIDTH_A set to 32
+        Info (286033): Parameter WIDTHAD_A set to 5
+        Info (286033): Parameter NUMWORDS_A set to 32
+        Info (286033): Parameter WIDTH_B set to 32
+        Info (286033): Parameter WIDTHAD_B set to 5
+        Info (286033): Parameter NUMWORDS_B set to 32
+        Info (286033): Parameter ADDRESS_ACLR_A set to NONE
+        Info (286033): Parameter OUTDATA_REG_B set to UNREGISTERED
+        Info (286033): Parameter ADDRESS_ACLR_B set to NONE
+        Info (286033): Parameter OUTDATA_ACLR_B set to NONE
+        Info (286033): Parameter ADDRESS_REG_B set to CLOCK0
+        Info (286033): Parameter INDATA_ACLR_A set to NONE
+        Info (286033): Parameter WRCONTROL_ACLR_A set to NONE
+Info (12130): Elaborated megafunction instantiation "mips:mips|datapath:dp|altsyncram:reg_rtl_0"
+Info (12133): Instantiated megafunction "mips:mips|datapath:dp|altsyncram:reg_rtl_0" with the following parameter:
+    Info (12134): Parameter "OPERATION_MODE" = "DUAL_PORT"
+    Info (12134): Parameter "WIDTH_A" = "32"
+    Info (12134): Parameter "WIDTHAD_A" = "5"
+    Info (12134): Parameter "NUMWORDS_A" = "32"
+    Info (12134): Parameter "WIDTH_B" = "32"
+    Info (12134): Parameter "WIDTHAD_B" = "5"
+    Info (12134): Parameter "NUMWORDS_B" = "32"
+    Info (12134): Parameter "ADDRESS_ACLR_A" = "NONE"
+    Info (12134): Parameter "OUTDATA_REG_B" = "UNREGISTERED"
+    Info (12134): Parameter "ADDRESS_ACLR_B" = "NONE"
+    Info (12134): Parameter "OUTDATA_ACLR_B" = "NONE"
+    Info (12134): Parameter "ADDRESS_REG_B" = "CLOCK0"
+    Info (12134): Parameter "INDATA_ACLR_A" = "NONE"
+    Info (12134): Parameter "WRCONTROL_ACLR_A" = "NONE"
+Info (12021): Found 1 design units, including 1 entities, in source file db/altsyncram_j6d1.tdf
+    Info (12023): Found entity 1: altsyncram_j6d1 File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/db/altsyncram_j6d1.tdf Line: 27
 Warning (13034): The following nodes have both tri-state and non-tri-state drivers
+    Warning (13035): Inserted always-enabled tri-state buffer between "LEDR[9]" and its non-tri-state driver. File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
+    Warning (13035): Inserted always-enabled tri-state buffer between "LEDR[5]" and its non-tri-state driver. File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
+    Warning (13035): Inserted always-enabled tri-state buffer between "LEDR[3]" and its non-tri-state driver. File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
+    Warning (13035): Inserted always-enabled tri-state buffer between "LEDR[2]" and its non-tri-state driver. File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
+    Warning (13035): Inserted always-enabled tri-state buffer between "LEDR[1]" and its non-tri-state driver. File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
     Warning (13035): Inserted always-enabled tri-state buffer between "LEDR[0]" and its non-tri-state driver. File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
 Warning (13039): The following bidirectional pins have no drivers
-    Warning (13040): bidirectional pin "LEDR[9]" has no driver File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
     Warning (13040): bidirectional pin "LEDR[8]" has no driver File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
     Warning (13040): bidirectional pin "LEDR[7]" has no driver File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
     Warning (13040): bidirectional pin "LEDR[6]" has no driver File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
-    Warning (13040): bidirectional pin "LEDR[5]" has no driver File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
     Warning (13040): bidirectional pin "LEDR[4]" has no driver File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
-    Warning (13040): bidirectional pin "LEDR[3]" has no driver File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
-    Warning (13040): bidirectional pin "LEDR[2]" has no driver File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
-    Warning (13040): bidirectional pin "LEDR[1]" has no driver File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
 Warning (13009): TRI or OPNDRN buffers permanently enabled
+    Warning (13010): Node "LEDR[9]~synth" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
+    Warning (13010): Node "LEDR[5]~synth" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
+    Warning (13010): Node "LEDR[3]~synth" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
+    Warning (13010): Node "LEDR[2]~synth" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
+    Warning (13010): Node "LEDR[1]~synth" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
     Warning (13010): Node "LEDR[0]~synth" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 53
+Info (286030): Timing-Driven Synthesis is running
 Info (16010): Generating hard_block partition "hard_block:auto_generated_inst"
     Info (16011): Adding 0 node(s), including 0 DDIO, 0 PLL, 0 transceiver and 0 LCELL
-Warning (21074): Design contains 174 input pin(s) that do not drive logic
+Warning (21074): Design contains 173 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "ADC_CLK_10" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 25
     Warning (15610): No output dependent on input pin "MAX10_CLK1_50" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 26
     Warning (15610): No output dependent on input pin "MAX10_CLK2_50" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 27
@@ -451,7 +885,6 @@ Warning (21074): Design contains 174 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "SW[4]" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 54
     Warning (15610): No output dependent on input pin "SW[3]" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 54
     Warning (15610): No output dependent on input pin "SW[2]" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 54
-    Warning (15610): No output dependent on input pin "SW[1]" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 54
     Warning (15610): No output dependent on input pin "VGA_B[3]" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 55
     Warning (15610): No output dependent on input pin "VGA_B[2]" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 55
     Warning (15610): No output dependent on input pin "VGA_B[1]" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 55
@@ -518,14 +951,16 @@ Warning (21074): Design contains 174 input pin(s) that do not drive logic
     Warning (15610): No output dependent on input pin "GPIO[2]" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 60
     Warning (15610): No output dependent on input pin "GPIO[1]" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 60
     Warning (15610): No output dependent on input pin "GPIO[0]" File: D:/Documents/_UAH/VLSI/vhdl-mips/quartus/DE10_LITE_Golden_Top.vhd Line: 60
-Info (21057): Implemented 185 device resources after synthesis - the final resource count might be different
+Info (21057): Implemented 14863 device resources after synthesis - the final resource count might be different
     Info (21058): Implemented 175 input pins
     Info (21059): Implemented 0 output pins
     Info (21060): Implemented 10 bidirectional pins
-Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 190 warnings
-    Info: Peak virtual memory: 4799 megabytes
-    Info: Processing ended: Wed Apr 21 14:24:40 2021
-    Info: Elapsed time: 00:00:10
-    Info: Total CPU time (on all processors): 00:00:23
+    Info (21061): Implemented 14614 logic cells
+    Info (21064): Implemented 64 RAM segments
+Info: Quartus Prime Analysis & Synthesis was successful. 0 errors, 196 warnings
+    Info: Peak virtual memory: 4912 megabytes
+    Info: Processing ended: Wed Apr 21 15:33:49 2021
+    Info: Elapsed time: 00:00:33
+    Info: Total CPU time (on all processors): 00:00:43
 
 

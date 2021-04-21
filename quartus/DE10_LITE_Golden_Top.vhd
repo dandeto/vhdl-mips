@@ -70,13 +70,18 @@ architecture ppl_type of DE10_LITE_Golden_Top is
 
 -- {ALTERA_COMPONENTS_BEGIN} DO NOT REMOVE THIS LINE!
 -- {ALTERA_COMPONENTS_END} DO NOT REMOVE THIS LINE!
+signal outputtest : std_logic_vector(3 downto 0);
 begin
 -- {ALTERA_INSTANTIATION_BEGIN} DO NOT REMOVE THIS LINE!
 -- {ALTERA_INSTANTIATION_END} DO NOT REMOVE THIS LINE!
 
-LEDR(0) <= SW(0); -- TEST! (works)
+LEDR(0) <= outputtest(0);
+LEDR(1) <= outputtest(1);
+LEDR(2) <= outputtest(2);
+LEDR(3) <= outputtest(3);
+
 
 mips: entity work.mips(behave)
-		port map (MAX10_CLK1_50, SW(0));
+		port map (SW(1), SW(0), outputtest, LEDR(9));
 
 end;

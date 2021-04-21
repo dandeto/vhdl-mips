@@ -5,7 +5,9 @@ entity mips is
 	port 
 	(
 		clk : in std_logic;
-		reset : in std_logic
+		reset : in std_logic;
+		ALUMirror : out std_logic_vector(3 downto 0);
+		Z : out std_logic
 	);
 end mips;
 
@@ -82,5 +84,8 @@ begin
 
 	alu_control: entity work.alu_control(behave)
 		port map (ALUop, func, ALUCtrl);
+		
+	ALUMirror <= ALUCtrl;
+	Z <= zero;
 
 end architecture;
