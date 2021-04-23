@@ -43,7 +43,7 @@ entity DE10_LITE_Golden_Top is
 		DRAM_ADDR : in std_logic_vector(0 to 12);
 		DRAM_BA : in std_logic_vector(0 to 1);
 		DRAM_DQ : in std_logic_vector(0 to 15);
-		HEX0 : out std_logic_vector(0 to 7);
+		HEX0 : out std_logic_vector(7 downto 0);
 		HEX1 : in std_logic_vector(0 to 7);
 		HEX2 : in std_logic_vector(0 to 7);
 		HEX3 : in std_logic_vector(0 to 7);
