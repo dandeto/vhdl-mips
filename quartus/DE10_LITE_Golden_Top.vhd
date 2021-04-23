@@ -43,7 +43,7 @@ entity DE10_LITE_Golden_Top is
 		DRAM_ADDR : in std_logic_vector(0 to 12);
 		DRAM_BA : in std_logic_vector(0 to 1);
 		DRAM_DQ : in std_logic_vector(0 to 15);
-		HEX0 : in std_logic_vector(0 to 7);
+		HEX0 : out std_logic_vector(0 to 7);
 		HEX1 : in std_logic_vector(0 to 7);
 		HEX2 : in std_logic_vector(0 to 7);
 		HEX3 : in std_logic_vector(0 to 7);
@@ -71,17 +71,26 @@ architecture ppl_type of DE10_LITE_Golden_Top is
 -- {ALTERA_COMPONENTS_BEGIN} DO NOT REMOVE THIS LINE!
 -- {ALTERA_COMPONENTS_END} DO NOT REMOVE THIS LINE!
 signal outputtest : std_logic_vector(3 downto 0);
+signal DEBUG_STATE : std_logic_vector(3 downto 0);
 begin
 -- {ALTERA_INSTANTIATION_BEGIN} DO NOT REMOVE THIS LINE!
 -- {ALTERA_INSTANTIATION_END} DO NOT REMOVE THIS LINE!
 
-LEDR(0) <= outputtest(0);
-LEDR(1) <= outputtest(1);
-LEDR(2) <= outputtest(2);
-LEDR(3) <= outputtest(3);
+--LEDR(0) <= outputtest(0);
+--LEDR(1) <= outputtest(1);
+--LEDR(2) <= outputtest(2);
+--LEDR(3) <= outputtest(3);
+
+LEDR(0) <= DEBUG_STATE(0);
+LEDR(1) <= DEBUG_STATE(1);
+LEDR(2) <= DEBUG_STATE(2);
+LEDR(3) <= DEBUG_STATE(3);
 
 
 mips: entity work.mips(behave)
-		port map (SW(1), SW(0), outputtest, LEDR(9));
+		port map (SW(1), SW(0), outputtest, LEDR(9), DEBUG_STATE);
+
+display: entity work.display_driver(behave)
+		port map (DEBUG_STATE, HEX0);
 
 end;

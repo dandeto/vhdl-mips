@@ -49,6 +49,16 @@ begin
 
         memRead <= '1';
         memWrite <= '0';
+        wait for 5 ns;
+
+        memRead <= '0';
+        address <= x"48"; -- 72
+        memWrite <= '1';
+        B <= x"0000FFFF";
+        wait for 5 ns;
+
+        memRead <= '1';
+        memWrite <= '0';
         wait;
     end process;
 end test;

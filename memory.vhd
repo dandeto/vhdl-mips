@@ -17,9 +17,12 @@ end memory;
 
 architecture behave of memory is
     type memory_block is array (0 to 255) of std_logic_vector(31 downto 0); -- define memory block type
-    signal mem : memory_block; -- data and instruction memory 
+    signal mem : memory_block; -- data and instruction memory
+    signal DEBUG : std_logic_vector(31 downto 0); 
 begin
-    
+    -- could send debug to display.
+    DEBUG <= mem(72);
+
     write_to_mem : process(clk, reset) begin -- handle writes to memory
         if rising_edge(clk) then 
             if reset = '1' then -- power on reset
@@ -39,6 +42,7 @@ begin
                 mem(13) <= x"00000000";
                 mem(14) <= x"00000000";
                 mem(15) <= x"00000000";
+
                 mem(64) <= x"00000010";
                 mem(68) <= x"00000001";
                 mem(72) <= x"00000001";

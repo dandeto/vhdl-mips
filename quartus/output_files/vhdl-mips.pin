@@ -170,10 +170,10 @@ SW[0]                        : C10       : input  : 3.3-V LVTTL       :         
 SW[1]                        : C11       : input  : 3.3-V LVTTL       :         : 7         : Y              
 SW[3]                        : C12       : input  : 3.3-V LVTTL       :         : 7         : Y              
 LEDR[5]                      : C13       : bidir  : 3.3-V LVTTL       :         : 7         : Y              
-HEX0[0]                      : C14       : input  : 3.3-V LVTTL       :         : 7         : Y              
-HEX0[2]                      : C15       : input  : 3.3-V LVTTL       :         : 7         : Y              
-HEX0[3]                      : C16       : input  : 3.3-V LVTTL       :         : 7         : Y              
-HEX0[6]                      : C17       : input  : 3.3-V LVTTL       :         : 7         : Y              
+HEX0[0]                      : C14       : output : 3.3-V LVTTL       :         : 7         : Y              
+HEX0[2]                      : C15       : output : 3.3-V LVTTL       :         : 7         : Y              
+HEX0[3]                      : C16       : output : 3.3-V LVTTL       :         : 7         : Y              
+HEX0[6]                      : C17       : output : 3.3-V LVTTL       :         : 7         : Y              
 HEX1[0]                      : C18       : input  : 3.3-V LVTTL       :         : 7         : Y              
 HEX3[3]                      : C19       : input  : 3.3-V LVTTL       :         : 7         : Y              
 HEX3[4]                      : C20       : input  : 3.3-V LVTTL       :         : 6         : Y              
@@ -193,9 +193,9 @@ GND                          : D11       : gnd    :                   :         
 SW[2]                        : D12       : input  : 3.3-V LVTTL       :         : 7         : Y              
 LEDR[4]                      : D13       : bidir  : 3.3-V LVTTL       :         : 7         : Y              
 LEDR[7]                      : D14       : bidir  : 3.3-V LVTTL       :         : 7         : Y              
-HEX0[7]                      : D15       : input  : 3.3-V LVTTL       :         : 7         : Y              
+HEX0[7]                      : D15       : output : 3.3-V LVTTL       :         : 7         : Y              
 GND                          : D16       : gnd    :                   :         :           :                
-HEX0[5]                      : D17       : input  : 3.3-V LVTTL       :         : 7         : Y              
+HEX0[5]                      : D17       : output : 3.3-V LVTTL       :         : 7         : Y              
 HEX1[1]                      : D18       : input  : 3.3-V LVTTL       :         : 6         : Y              
 HEX3[5]                      : D19       : input  : 3.3-V LVTTL       :         : 6         : Y              
 GND                          : D20       : gnd    :                   :         :           :                
@@ -215,8 +215,8 @@ RESERVED_INPUT_WITH_WEAK_PULLUP : E11       :        :                   :      
 RESERVED_INPUT_WITH_WEAK_PULLUP : E12       :        :                   :         : 7         :                
 RESERVED_INPUT_WITH_WEAK_PULLUP : E13       :        :                   :         : 7         :                
 LEDR[6]                      : E14       : bidir  : 3.3-V LVTTL       :         : 7         : Y              
-HEX0[1]                      : E15       : input  : 3.3-V LVTTL       :         : 7         : Y              
-HEX0[4]                      : E16       : input  : 3.3-V LVTTL       :         : 7         : Y              
+HEX0[1]                      : E15       : output : 3.3-V LVTTL       :         : 7         : Y              
+HEX0[4]                      : E16       : output : 3.3-V LVTTL       :         : 7         : Y              
 HEX3[6]                      : E17       : input  : 3.3-V LVTTL       :         : 6         : Y              
 HEX1[2]                      : E18       : input  : 3.3-V LVTTL       :         : 6         : Y              
 HEX4[2]                      : E19       : input  : 3.3-V LVTTL       :         : 6         : Y              

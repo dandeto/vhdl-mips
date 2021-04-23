@@ -25,8 +25,8 @@ begin
             else
                 if(PCsel = '1') then
                     case(PCSource) is
-                        when '0' => PC <= ALUResult(7 downto 0); -- needs verifying!!!
-                        when '1' => PC <= ALUOut(7 downto 0); -- needs verifying!!!
+                        when '0' => PC <= ALUResult(7 downto 0); -- direct line from alu
+                        when '1' => PC <= ALUOut(7 downto 0);    -- intermediate register
                         when others => PC <= "XXXXXXXX";
                     end case;
                 end if;

@@ -7,7 +7,8 @@ entity mips is
 		clk : in std_logic;
 		reset : in std_logic;
 		ALUMirror : out std_logic_vector(3 downto 0);
-		Z : out std_logic
+		Z : out std_logic;
+		DEBUG_STATE : out std_logic_vector(3 downto 0)
 	);
 end mips;
 
@@ -79,7 +80,8 @@ begin
 			ALUSrcA => ALUSrcA,
 			PCSel => PCSel,
 			ALUOp => ALUOp,
-			ALUSrcB => ALUSrcB
+			ALUSrcB => ALUSrcB,
+			DEBUG_STATE => DEBUG_STATE
 		);
 
 	alu_control: entity work.alu_control(behave)

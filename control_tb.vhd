@@ -50,7 +50,7 @@ begin
 		rst <= '0';
 		Op <= "100011";
 		Z <= '0';
-		wait for 10 ns;
+		wait for 10 ns; -- 5 clk pulses - max 
 		Op <= "101011";
 		wait for 10 ns;
 		Op <= "000000";
@@ -59,5 +59,6 @@ begin
 		wait for 10 ns;
 		rst <= '1';
 		wait for 10 ns;
+		wait;
 	end process;
 end TEST;

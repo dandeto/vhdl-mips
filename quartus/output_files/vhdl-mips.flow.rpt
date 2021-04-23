@@ -1,5 +1,5 @@
 Flow report for vhdl-mips
-Wed Apr 21 15:36:08 2021
+Thu Apr 22 22:58:14 2021
 Quartus Prime Version 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 
 
@@ -40,17 +40,17 @@ refer to the applicable agreement for further details.
 +----------------------------------------------------------------------------------+
 ; Flow Summary                                                                     ;
 +------------------------------------+---------------------------------------------+
-; Flow Status                        ; Successful - Wed Apr 21 15:36:08 2021       ;
+; Flow Status                        ; Successful - Thu Apr 22 22:58:14 2021       ;
 ; Quartus Prime Version              ; 17.1.0 Build 590 10/25/2017 SJ Lite Edition ;
 ; Revision Name                      ; vhdl-mips                                   ;
 ; Top-level Entity Name              ; DE10_LITE_Golden_Top                        ;
 ; Family                             ; MAX 10                                      ;
 ; Device                             ; 10M50DAF484C6GES                            ;
 ; Timing Models                      ; Preliminary                                 ;
-; Total logic elements               ; 10,525 / 49,760 ( 21 % )                    ;
-;     Total combinational functions  ; 6,282 / 49,760 ( 13 % )                     ;
-;     Dedicated logic registers      ; 8,443 / 49,760 ( 17 % )                     ;
-; Total registers                    ; 8443                                        ;
+; Total logic elements               ; 10,553 / 49,760 ( 21 % )                    ;
+;     Total combinational functions  ; 6,300 / 49,760 ( 13 % )                     ;
+;     Dedicated logic registers      ; 8,450 / 49,760 ( 17 % )                     ;
+; Total registers                    ; 8450                                        ;
 ; Total pins                         ; 185 / 360 ( 51 % )                          ;
 ; Total virtual pins                 ; 0                                           ;
 ; Total memory bits                  ; 2,048 / 1,677,312 ( < 1 % )                 ;
@@ -66,7 +66,7 @@ refer to the applicable agreement for further details.
 +-------------------+---------------------+
 ; Option            ; Setting             ;
 +-------------------+---------------------+
-; Start date & time ; 04/21/2021 15:33:17 ;
+; Start date & time ; 04/22/2021 22:55:23 ;
 ; Main task         ; Compilation         ;
 ; Revision Name     ; vhdl-mips           ;
 +-------------------+---------------------+
@@ -77,7 +77,7 @@ refer to the applicable agreement for further details.
 +-------------------------------------+----------------------------------------+--------------------------------------+----------------------+----------------+
 ; Assignment Name                     ; Value                                  ; Default Value                        ; Entity Name          ; Section Id     ;
 +-------------------------------------+----------------------------------------+--------------------------------------+----------------------+----------------+
-; COMPILER_SIGNATURE_ID               ; 91765710684.161903719606672            ; --                                   ; --                   ; --             ;
+; COMPILER_SIGNATURE_ID               ; 91767563654.161915012314932            ; --                                   ; --                   ; --             ;
 ; EDA_OUTPUT_DATA_FORMAT              ; Vhdl                                   ; --                                   ; --                   ; eda_simulation ;
 ; EDA_SIMULATION_TOOL                 ; ModelSim (VHDL)                        ; <None>                               ; --                   ; --             ;
 ; EDA_TIME_SCALE                      ; 1 ps                                   ; --                                   ; --                   ; eda_simulation ;
@@ -101,12 +101,12 @@ refer to the applicable agreement for further details.
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 ; Module Name               ; Elapsed Time ; Average Processors Used ; Peak Virtual Memory ; Total CPU Time (on all processors) ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
-; Analysis & Synthesis      ; 00:00:31     ; 1.0                     ; 4912 MB             ; 00:00:42                           ;
-; Fitter                    ; 00:01:57     ; 1.6                     ; 6422 MB             ; 00:04:18                           ;
-; Assembler                 ; 00:00:04     ; 1.0                     ; 4715 MB             ; 00:00:04                           ;
-; TimeQuest Timing Analyzer ; 00:00:09     ; 4.8                     ; 5016 MB             ; 00:00:33                           ;
-; EDA Netlist Writer        ; 00:00:03     ; 1.0                     ; 4749 MB             ; 00:00:03                           ;
-; Total                     ; 00:02:44     ; --                      ; --                  ; 00:05:40                           ;
+; Analysis & Synthesis      ; 00:00:31     ; 1.0                     ; 4915 MB             ; 00:00:43                           ;
+; Fitter                    ; 00:01:56     ; 1.6                     ; 6423 MB             ; 00:04:12                           ;
+; Assembler                 ; 00:00:04     ; 1.0                     ; 4716 MB             ; 00:00:04                           ;
+; TimeQuest Timing Analyzer ; 00:00:10     ; 4.9                     ; 5019 MB             ; 00:00:34                           ;
+; EDA Netlist Writer        ; 00:00:03     ; 1.0                     ; 4754 MB             ; 00:00:03                           ;
+; Total                     ; 00:02:44     ; --                      ; --                  ; 00:05:36                           ;
 +---------------------------+--------------+-------------------------+---------------------+------------------------------------+
 
 

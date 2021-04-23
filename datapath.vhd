@@ -43,8 +43,8 @@ architecture behave of datapath is
     type register_block is array (0 to 31) of std_logic_vector(31 downto 0); -- define register block type
     signal reg : register_block;
     signal mdr : std_logic_vector(31 downto 0); -- used for transfering data to instruction opcodes
-    signal da : std_logic_vector(31 downto 0); -- data read a
-    signal db : std_logic_vector(31 downto 0); -- data read b
+    signal da  : std_logic_vector(31 downto 0); -- data read a
+    signal db  : std_logic_vector(31 downto 0); -- data read b
 
     signal opA : std_logic_vector(31 downto 0);
     signal opB : std_logic_vector(31 downto 0);
