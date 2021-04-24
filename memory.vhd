@@ -11,17 +11,17 @@ entity memory is
         memRead : in std_logic;
         address : in std_logic_vector(7 downto 0);
         B : in std_logic_vector(31 downto 0);
-        memData : out std_logic_vector(31 downto 0)
+        memData : out std_logic_vector(31 downto 0);
+        DEBUG   : out std_logic_vector(23 downto 0) -- for hex display
     );
 end memory;
 
 architecture behave of memory is
     type memory_block is array (0 to 255) of std_logic_vector(31 downto 0); -- define memory block type
     signal mem : memory_block; -- data and instruction memory
-    signal DEBUG : std_logic_vector(31 downto 0); 
 begin
-    -- could send debug to display.
-    DEBUG <= mem(72);
+    -- send debug to display
+    DEBUG <= mem(72)(23 downto 0);
 
     write_to_mem : process(clk, reset) begin -- handle writes to memory
         if rising_edge(clk) then 
@@ -50,7 +50,6 @@ begin
                 mem(72) <= x"00000001";
 
                 mem(128) <= x"00004020"; -- instruction memory
-                --mem(129) <= x"AD000048";
                 mem(129) <= x"8D090047";
                 mem(130) <= x"AD090048";
                 mem(131) <= x"8D0A0046";
@@ -73,46 +72,6 @@ begin
                 mem(148) <= x"AD0A0048";
                 mem(149) <= x"114A0093";
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                --mem(129) <= x"00007020";
-                --mem(130) <= x"8D090040";
-                --mem(131) <= x"8D0A0044";
-                --mem(132) <= x"8D0B0048";
-                --mem(133) <= x"AD00004C";
-                --mem(134) <= x"8D0C0000";
-                --mem(135) <= x"8DCD004C";
-                --mem(136) <= x"01AC6820";
-                --mem(137) <= x"ADCD004C";
-                --mem(138) <= x"012A4822";
-                --mem(139) <= x"010B4020";
-                --mem(140) <= x"11200001";
-                --mem(141) <= x"1129FFF8";
-            
             elsif(memWrite = '1') then 
                 mem(to_integer(unsigned(address))) <= B;
             end if;

@@ -72,6 +72,7 @@ architecture ppl_type of DE10_LITE_Golden_Top is
 -- {ALTERA_COMPONENTS_END} DO NOT REMOVE THIS LINE!
 signal outputtest : std_logic_vector(3 downto 0);
 signal DEBUG_STATE : std_logic_vector(3 downto 0);
+signal DEBUG : std_logic_vector(23 downto 0);
 begin
 -- {ALTERA_INSTANTIATION_BEGIN} DO NOT REMOVE THIS LINE!
 -- {ALTERA_INSTANTIATION_END} DO NOT REMOVE THIS LINE!
@@ -88,9 +89,19 @@ LEDR(3) <= DEBUG_STATE(3);
 
 
 mips: entity work.mips(behave)
-		port map (SW(1), SW(0), outputtest, LEDR(9), DEBUG_STATE);
+		port map (SW(1), SW(0), outputtest, LEDR(9), DEBUG_STATE, DEBUG);
 
-display: entity work.display_driver(behave)
-		port map (DEBUG_STATE, HEX0);
+display1: entity work.display_driver(behave)
+		port map (DEBUG(3 downto 0), HEX0);
+display2: entity work.display_driver(behave)
+		port map (DEBUG(7 downto 4), HEX1);
+display3: entity work.display_driver(behave)
+		port map (DEBUG(11 downto 8), HEX2);
+display4: entity work.display_driver(behave)
+		port map (DEBUG(15 downto 12), HEX3);
+display5: entity work.display_driver(behave)
+		port map (DEBUG(19 downto 16), HEX4);
+display6: entity work.display_driver(behave)
+		port map (DEBUG(23 downto 20), HEX5);
 
 end;

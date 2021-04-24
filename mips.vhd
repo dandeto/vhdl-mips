@@ -8,7 +8,8 @@ entity mips is
 		reset : in std_logic;
 		ALUMirror : out std_logic_vector(3 downto 0);
 		Z : out std_logic;
-		DEBUG_STATE : out std_logic_vector(3 downto 0)
+		DEBUG_STATE : out std_logic_vector(3 downto 0);
+		DEBUG : out std_logic_vector(23 downto 0)
 	);
 end mips;
 
@@ -50,7 +51,8 @@ architecture behave of mips is
 			ALUCtrl : in std_logic_vector(3 downto 0);
 			op : out std_logic_vector(5 downto 0);
 			zero : out std_logic;
-			func : out std_logic_vector(5 downto 0)
+			func : out std_logic_vector(5 downto 0);
+			DEBUG : out std_logic_vector(23 downto 0)
 		);
 	end component;
 

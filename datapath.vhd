@@ -21,9 +21,10 @@ entity datapath is
         ALUSrcB : in std_logic_vector(1 downto 0);
         ALUCtrl : in std_logic_vector(3 downto 0);
 
-        op : out std_logic_vector(5 downto 0);
-        zero : out std_logic;
-        func : out std_logic_vector(5 downto 0)
+        op    : out std_logic_vector(5 downto 0);
+        zero  : out std_logic;
+        func  : out std_logic_vector(5 downto 0);
+        DEBUG : out std_logic_vector(23 downto 0) -- for hex display
     );
 end datapath;
 
@@ -77,7 +78,8 @@ architecture behave of datapath is
             memRead : in std_logic;
             address : in std_logic_vector(7 downto 0);
             B : in std_logic_vector(31 downto 0);
-            memData : out std_logic_vector(31 downto 0)
+            memData : out std_logic_vector(31 downto 0);
+            DEBUG : out std_logic_vector(23 downto 0) -- for hex display
         );
     end component;
 
@@ -110,7 +112,8 @@ begin
         memRead=>memRead,
         address=>address,
         B=>B,
-        memData=>memData
+        memData=>memData,
+        DEBUG=>DEBUG
     );
     
         -- PC logic
@@ -139,11 +142,8 @@ begin
     da <= reg(to_integer(unsigned(instruction(25 downto 21)))) when (to_integer(unsigned(instruction(25 downto 21))) /= 0) 
     else x"00000000";
 
-    --da <= reg(to_integer(unsigned(instruction(25 downto 21))));
-
     db <= reg(to_integer(unsigned(instruction(20 downto 16)))) when (to_integer(unsigned(instruction(20 downto 16))) /= 0) 
     else x"00000000";
-    --db <= reg(to_integer(unsigned(instruction(20 downto 16))));
 
     reg_dst : process(clk) begin
         if rising_edge(clk) then
