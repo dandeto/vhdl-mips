@@ -44,11 +44,11 @@ entity DE10_LITE_Golden_Top is
 		DRAM_BA : in std_logic_vector(0 to 1);
 		DRAM_DQ : in std_logic_vector(0 to 15);
 		HEX0 : out std_logic_vector(7 downto 0);
-		HEX1 : in std_logic_vector(0 to 7);
-		HEX2 : in std_logic_vector(0 to 7);
-		HEX3 : in std_logic_vector(0 to 7);
-		HEX4 : in std_logic_vector(0 to 7);
-		HEX5 : in std_logic_vector(0 to 7);
+		HEX1 : out std_logic_vector(7 downto 0);
+		HEX2 : out std_logic_vector(7 downto 0);
+		HEX3 : out std_logic_vector(7 downto 0);
+		HEX4 : out std_logic_vector(7 downto 0);
+		HEX5 : out std_logic_vector(7 downto 0);
 		KEY : in std_logic_vector(0 to 1);
 		LEDR : inout std_logic_vector(0 to 9);
 		SW : in std_logic_vector(0 to 9); -- use sw 0 as reset

@@ -22,15 +22,15 @@ architecture behave of control is
 	signal state, next_state    : std_logic_vector(3 downto 0);
 
 	-- Control Constants
-	constant FETCH      : std_logic_vector(3 downto 0) := "0000"; -- instruction fetch
-	constant DECODE     : std_logic_vector(3 downto 0) := "0001"; -- instruction decode / register fetch
-	constant MEMADRCOMP : std_logic_vector(3 downto 0) := "0010"; -- memory address computation
+	constant IFETCH     : std_logic_vector(3 downto 0) := "0000"; -- instruction fetch
+	constant IDECODE    : std_logic_vector(3 downto 0) := "0001"; -- instruction decode / register fetch
+	constant ADDRESSCMP : std_logic_vector(3 downto 0) := "0010"; -- memory address computation
 	constant MEMLOAD    : std_logic_vector(3 downto 0) := "0011"; -- Memory Access 'load word'
-	constant MEMREADEND : std_logic_vector(3 downto 0) := "0100"; -- Memory Access finished
-	constant MEMSTORE   : std_logic_vector(3 downto 0) := "0101"; -- Memory Access 'store word'
-	constant EXECUTION  : std_logic_vector(3 downto 0) := "0110";
+	constant MEMSTORE   : std_logic_vector(3 downto 0) := "0100"; -- Memory Access 'store word'
+	constant WRITEBACK  : std_logic_vector(3 downto 0) := "0101"; -- Memory Access finished
+	constant EXECUTE    : std_logic_vector(3 downto 0) := "0110";
 	constant RCOMPLETE  : std_logic_vector(3 downto 0) := "0111"; -- R-type completion
-	constant BEQ        : std_logic_vector(3 downto 0) := "1000"; -- Branch completion
+	constant BCOMPLETE  : std_logic_vector(3 downto 0) := "1000"; -- Branch completion
 begin
 
 	-- advance PC
@@ -42,7 +42,7 @@ begin
 	process (clk) begin
 		if rising_edge(clk) then
 			if(rst = '1') then
-				state <= FETCH;
+				state <= IFETCH;
 			else
 				state <= next_state;
 			end if;
@@ -52,28 +52,28 @@ begin
 	-- FSM next state
 	process(state, Op) begin
 		case(state) is
-			when FETCH => next_state <= DECODE;
-			when DECODE =>
+			when IFETCH => next_state <= IDECODE;
+			when IDECODE =>
 				case(Op) is
-					when "100011" => next_state <= MEMADRCOMP; --lw
-					when "101011" => next_state <= MEMADRCOMP; --sw
-					when "000000" => next_state <= EXECUTION; --r
-					when "000100" => next_state <= BEQ; --beq
-					when others   => next_state <= FETCH;
+					when "000000" => next_state <= EXECUTE;
+					when "000100" => next_state <= BCOMPLETE;
+					when "100011" => next_state <= ADDRESSCMP;
+					when "101011" => next_state <= ADDRESSCMP;
+					when others   => next_state <= IFETCH;
 				end case;
-			when MEMADRCOMP =>
+			when ADDRESSCMP =>
 				case(Op) is
-					when "100011" => next_state <= MEMLOAD; --lw
-					when "101011" => next_state <= MEMSTORE; --sw
-					when others   => next_state <= FETCH;
+					when "100011" => next_state <= MEMLOAD;
+					when "101011" => next_state <= MEMSTORE;
+					when others   => next_state <= IFETCH;
 				end case;
-			when MEMLOAD    => next_state <= MEMREADEND;
-			when MEMREADEND => next_state <= FETCH;
-			when MEMSTORE   => next_state <= FETCH;
-			when EXECUTION  => next_state <= RCOMPLETE;
-			when RCOMPLETE  => next_state <= FETCH;
-			when BEQ        => next_state <= FETCH;
-			when others     => next_state <= FETCH; -- when in doubt: fetch
+			when MEMLOAD    => next_state <= WRITEBACK;
+			when MEMSTORE   => next_state <= IFETCH;
+			when WRITEBACK  => next_state <= IFETCH;
+			when EXECUTE    => next_state <= RCOMPLETE;
+			when RCOMPLETE  => next_state <= IFETCH;
+			when BCOMPLETE  => next_state <= IFETCH;
+			when others     => next_state <= IFETCH; -- when in doubt: IFETCH
 		end case;
 	end process;
 
@@ -84,47 +84,47 @@ begin
 		MemWrite    <= '0';
 		MemtoReg    <= '0';
 		IRWrite     <= '0';
-		PCSource    <= '0';
-		ALUSrcB     <= "00";
-		ALUSrcA     <= '0';
 		RegWrite    <= '0';
 		RegDst      <= '0';
+		PCSource    <= '0';
 		PCWrite     <= '0';
 		PCWriteCond <= '0';
+		ALUSrcB     <= "00";
+		ALUSrcA     <= '0';
 		ALUOp       <= "00";
 
 		-- FSM output
 		case (state) is
-			when FETCH =>
+			when IFETCH =>
 				MemRead <= '1';
 				IRWrite <= '1';
-				ALUSrcB <= "01";
 				PCWrite <= '1';
-			when DECODE => ALUSrcB <= "11";
-			when MEMADRCOMP =>
+				ALUSrcB <= "01";
+			when IDECODE => ALUSrcB <= "11";
+			when ADDRESSCMP =>
 				ALUSrcA <= '1';
 				ALUSrcB <= "10";
 			when MEMLOAD =>
 				MemRead <= '1';
 				IorD    <= '1'; -- switch to data
-			when MEMREADEND =>
-				RegWrite <= '1';
-				MemtoReg <= '1';
-				RegDst   <= '0';
 			when MEMSTORE =>
 				MemWrite <= '1';
 				IorD     <= '1'; -- switch to data
-			when EXECUTION =>
+			when WRITEBACK  =>
+				RegDst   <= '0';
+				RegWrite <= '1';
+				MemtoReg <= '1';
+			when EXECUTE   =>
 				ALUSrcA <= '1';
 				ALUOp   <= "10";
 			when RCOMPLETE =>
 				RegDst   <= '1';
 				RegWrite <= '1';
-			when BEQ =>
-				ALUSrcA     <= '1';
-				ALUOp       <= "01";
+			when BCOMPLETE =>
 				PCWriteCond <= '1';
 				PCSource    <= '1';
+				ALUSrcA     <= '1';
+				ALUOp       <= "01";
 			when others => null;
 		end case;
 	end process;
