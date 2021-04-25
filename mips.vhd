@@ -62,7 +62,7 @@ begin
 	(
 		clk=>clk, reset=>reset, IorD=>IorD, memWrite=>memWrite, memRead=>memRead, memToReg=>memToReg, 
 		IRWrite=>IRWrite, PCSource=>PCSOurce, regDst=>regDst, regWrite=>regWrite, PCSel=>PCSel,
-		ALUSrcA=>ALUSrcA, ALUSrcB=>ALUSrcB, ALUCtrl=>ALUCtrl, op=>op, zero=>zero, func=>func
+		ALUSrcA=>ALUSrcA, ALUSrcB=>ALUSrcB, ALUCtrl=>ALUCtrl, op=>op, zero=>zero, func=>func, DEBUG=>DEBUG
 	);
 
 	ctrl : entity work.control(behave)

@@ -1,10 +1,10 @@
-Analysis & Synthesis Status : Successful - Fri Apr 23 19:35:55 2021
+Analysis & Synthesis Status : Successful - Sun Apr 25 01:20:36 2021
 Quartus Prime Version : 17.1.0 Build 590 10/25/2017 SJ Lite Edition
 Revision Name : vhdl-mips
 Top-level Entity Name : DE10_LITE_Golden_Top
 Family : MAX 10
-Total logic elements : 14,517
-    Total combinational functions : 6,301
+Total logic elements : 14,514
+    Total combinational functions : 6,298
     Dedicated logic registers : 8,450
 Total registers : 8450
 Total pins : 185
